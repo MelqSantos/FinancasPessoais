@@ -28,18 +28,23 @@ export class CadastrarComponent implements OnInit {
   }
 
   cadastrar(){
-    
+    // Validações dos campos
     if(this.user.senha != this.confirmaSenha){
       this.alerta.showAlertDanger('As senhas não coincidem.')
-    } else{
-
-      this.userService.cadastrar(this.user).subscribe((resp: Usuario) =>{
-        this.user = resp;
-
-        this.router.navigate(['/login'])
-        this.alerta.showAlertSuccess('Usuário cadastrado com sucesso!')
-      })
-
+    } 
+    else{
+      if(this.user.nome == undefined || this.user.email == undefined){
+        this.alerta.showAlertWarning('Favor verificar os campos vazios.')
+      } 
+      else{
+        // POST dos dados
+        this.userService.cadastrar(this.user).subscribe((resp: Usuario) =>{
+          this.user = resp;
+  
+          this.router.navigate(['/login'])
+          this.alerta.showAlertSuccess('Usuário cadastrado com sucesso!')
+        })
+      }
     }
   }
 

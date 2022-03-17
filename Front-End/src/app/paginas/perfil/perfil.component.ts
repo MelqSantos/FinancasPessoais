@@ -54,6 +54,9 @@ export class PerfilComponent implements OnInit {
       environment.nome = '';
       environment.email = '';
       environment.token = '';
+    },
+    error => {
+      this.alerta.showAlertWarning(`HTTP: ${error.status} - Entre em contato com o administrador.`)
     })
   }
 

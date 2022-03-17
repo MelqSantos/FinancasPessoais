@@ -103,8 +103,6 @@ export class TransacoesComponent implements OnInit {
   getAllCategorias() {
     this.categoriaService.getAllCategorias().subscribe((resp: Categoria[]) => {
       this.listaCategorias = resp
-
-
     })
   }
 
@@ -147,19 +145,33 @@ export class TransacoesComponent implements OnInit {
     this.mes.id = this.idMes
     this.transacao.mes = this.mes
 
-    // POST
-    this.transacaoService.postTransacao(this.transacao).subscribe((resp: Transacao) => {
-      this.transacao = resp
+    // Validações dos campos
+    let campo = this.transacao
 
-      this.alerta.showAlertSuccess('Transação adicionada com sucesso!')
-      this.transacao = new Transacao()
-      this.getByIdUser()
-    },
-    error => {
-      if(error.status == 400){
-        this.alerta.showAlertDanger(`HTTP: ${error.status} - Entre em contato com o administrador`)
-      }
-    })
+    if (campo.descricao == undefined ||
+      campo.valor == undefined ||
+      campo.tipo == undefined ||
+      campo.mes.id == undefined ||
+      campo.categoria.id == undefined
+    ) {
+      this.alerta.showAlertWarning('Favor verificar os campos vazios.')
+    }
+    else {
+      console.log(this.transacao)
+      // POST dos dados
+      this.transacaoService.postTransacao(this.transacao).subscribe((resp: Transacao) => {
+        this.transacao = resp
+
+        this.alerta.showAlertSuccess('Transação adicionada com sucesso!')
+        this.transacao = new Transacao()
+        this.getByIdUser()
+      },
+        error => {
+          if (error.status == 400) {
+            this.alerta.showAlertDanger(`HTTP: ${error.status} - Entre em contato com o administrador`)
+          }
+        })
+    }
   }
 
   editar() {
@@ -169,19 +181,31 @@ export class TransacoesComponent implements OnInit {
     this.transacaoUtil.categoria = this.categoria
     this.transacaoUtil.mes = this.mes
 
-    this.transacaoService.editTransacao(this.transacaoUtil).subscribe((resp: Transacao) => {
-      this.transacaoUtil = resp
-      this.alerta.showAlertInfo('Transação atualizada com sucesso!')
+    // Validações dos campos
+    let campo = this.transacaoUtil
 
-      // Zera e atualiza as variáveis
-      this.transacaoUtil = new Transacao();
-      this.getByIdUser()
-    },
-    error => {
-      if(error.status == 400){
-        this.alerta.showAlertDanger(`HTTP: ${error.status} - Entre em contato com o administrador`)
-      }
-    })
+    if (campo.descricao == undefined ||
+      campo.valor == undefined ||
+      campo.tipo == undefined ||
+      campo.mes.id == undefined ||
+      campo.categoria.id == undefined) {
+      this.alerta.showAlertWarning('Favor verificar os campos vazios.')
+    }
+    else {
+      this.transacaoService.editTransacao(this.transacaoUtil).subscribe((resp: Transacao) => {
+        this.transacaoUtil = resp
+        this.alerta.showAlertInfo('Transação atualizada com sucesso!')
+
+        // Zera e atualiza as variáveis
+        this.transacaoUtil = new Transacao();
+        this.getByIdUser()
+      },
+        error => {
+          if (error.status == 400) {
+            this.alerta.showAlertDanger(`HTTP: ${error.status} - Entre em contato com o administrador`)
+          }
+        })
+    }
   }
 
   apagar() {

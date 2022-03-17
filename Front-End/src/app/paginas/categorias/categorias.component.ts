@@ -46,19 +46,23 @@ export class CategoriasComponent implements OnInit {
   }
 
   cadastrar(){
-    this.categoriaService.postCategoria(this.categoria).subscribe((resp: Categoria) =>{
-      this.categoria = resp;
-
-      this.alerta.showAlertSuccess("Categoria cadastrada com sucesso!")
-      // Reseta o objeto categoria
-      this.categoria = new Categoria();
-      // Refresh na lista(Tabela) de categorias
-      this.getAll()
-    })
+    if(this.categoria.descricao == undefined){
+      this.alerta.showAlertWarning('Favor verificar os campos vazios.')
+    } 
+    else{
+      this.categoriaService.postCategoria(this.categoria).subscribe((resp: Categoria) =>{
+        this.categoria = resp;
+  
+        this.alerta.showAlertSuccess("Categoria cadastrada com sucesso!")
+        // Reseta o objeto categoria
+        this.categoria = new Categoria();
+        // Refresh na lista(Tabela) de categorias
+        this.getAll()
+      })
+    }
   }
 
   editar(){
-    console.log(this.categoriaUtil)
     this.categoriaService.putCategoria(this.categoriaUtil).subscribe((resp: Categoria) => {
       this.categoria = resp
       this.alerta.showAlertInfo("Categoria atualizada com sucesso!")
