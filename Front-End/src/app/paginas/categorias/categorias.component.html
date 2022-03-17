@@ -32,12 +32,14 @@
                     <th scope="row">{{categoria.id}}</th>
                     <td>{{categoria.descricao}}</td>
                     <td>
-                        <button value="{{categoria.id}}" #ref (click)="getByIdCategoria(ref.value)" class="btn btn-editar mr-2" data-toggle="modal" data-target="#modalThree">
+                        <div *ngIf="categoria.descricao != 'Investimento'">
+                            <button value="{{categoria.id}}" #ref (click)="getByIdCategoria(ref.value)" class="btn btn-editar mr-2" data-toggle="modal" data-target="#modalThree">
                             <mat-icon>edit_note</mat-icon>
                         </button>
-                        <button value="{{categoria.id}}" #ref (click)="getByIdCategoria(ref.value)" class="btn btn-apagar" data-toggle="modal" data-target="#modalTwo">
+                            <button value="{{categoria.id}}" #ref (click)="getByIdCategoria(ref.value)" class="btn btn-apagar" data-toggle="modal" data-target="#modalTwo">
                             <mat-icon>delete_forever</mat-icon>
                         </button>
+                        </div>
                     </td>
                 </tr>
 
