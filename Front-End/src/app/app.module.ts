@@ -11,6 +11,7 @@ import { OrderModule } from 'ngx-order-pipe';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { GaugeModule } from 'angular-gauge';
 import { NgChartsModule } from 'ng2-charts';
+import { GaugeChartModule } from 'angular-gauge-chart';
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(ptBr);
@@ -25,7 +26,6 @@ import { CategoriasComponent } from './paginas/categorias/categorias.component';
 import { PerfilComponent } from './paginas/perfil/perfil.component';
 import { EconomiasComponent } from './paginas/economias/economias.component';
 import { GraficoComponent } from './shared/grafico/grafico.component';
-import { GaugeChartComponent } from './shared/gauge-chart/gauge-chart.component';
 import { TransacoesComponent } from './paginas/transacoes/transacoes.component';
 
 @NgModule({
@@ -39,7 +39,6 @@ import { TransacoesComponent } from './paginas/transacoes/transacoes.component';
     PerfilComponent,
     EconomiasComponent,
     GraficoComponent,
-    GaugeChartComponent,
     TransacoesComponent,
   ],
   imports: [
@@ -53,6 +52,7 @@ import { TransacoesComponent } from './paginas/transacoes/transacoes.component';
     CurrencyMaskModule,
     GaugeModule,
     NgChartsModule,
+    GaugeChartModule,
     ModalModule.forRoot(),
     GaugeModule.forRoot()
   ],

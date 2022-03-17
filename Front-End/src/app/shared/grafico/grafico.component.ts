@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Chart } from 'chart.js';
 import { MesService } from 'src/app/service/mes.service';
 import { environment } from 'src/environments/environment.prod';
