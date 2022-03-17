@@ -77,7 +77,7 @@
                 <div class="status px-4 mt-2 text-white d-flex justify-content-between">
                     <div class="tipo d-flex align-items-center">
                         <div class="icon-wrapper mr-2">
-                            <mat-icon class="text-dark">iso</mat-icon>
+                            <mat-icon class="text-dark">account_balance</mat-icon>
                         </div>
                         <p class="mb-0">Balanço</p>
                     </div>
@@ -86,7 +86,7 @@
             </div>
 
             <div class="controle d-flex flex-column align-items-center justify-content-center">
-                <rg-gauge-chart [canvasWidth]="canvasWidth" [needleValue]="needleValue" [centralLabel]="centralLabel" [options]="options" [name]="name" [bottomLabel]="bottomLabel"></rg-gauge-chart>
+                <app-gauge-chart></app-gauge-chart>
             </div>
         </div>
     </div>

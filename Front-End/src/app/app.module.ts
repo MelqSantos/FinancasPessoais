@@ -27,6 +27,7 @@ import { PerfilComponent } from './paginas/perfil/perfil.component';
 import { EconomiasComponent } from './paginas/economias/economias.component';
 import { GraficoComponent } from './shared/grafico/grafico.component';
 import { TransacoesComponent } from './paginas/transacoes/transacoes.component';
+import { GaugeChartComponent } from './shared/gauge-chart/gauge-chart.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TransacoesComponent } from './paginas/transacoes/transacoes.component';
     EconomiasComponent,
     GraficoComponent,
     TransacoesComponent,
+    GaugeChartComponent,
   ],
   imports: [
     BrowserModule,

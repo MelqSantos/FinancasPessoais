@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { MesService } from 'src/app/service/mes.service';
 import { environment } from 'src/environments/environment.prod';
 import { Mes } from 'src/model/Mes';
-import { Transacao } from 'src/model/Transacao';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,9 +14,6 @@ export class DashboardComponent implements OnInit {
   mesAtual: Mes = new Mes();
   listaMeses: Mes[];
 
-  data: Date = new Date();
-  teste: number = this.data.getMonth() + 1
-
   idMes: number;
   idUser = environment.id
   somaDespesa: number = 0;
@@ -25,7 +21,6 @@ export class DashboardComponent implements OnInit {
   somaReceita: number = 0;
   somaEconomia: number = 0;
   balanco: number = 0;
-  public perc : number = 0;
 
   constructor(
     private mesService: MesService,
@@ -42,24 +37,6 @@ export class DashboardComponent implements OnInit {
     this.getMesById()
     this.getAllMeses()
   }
-
-  public canvasWidth = 300
-  public needleValue = 65
-  public centralLabel = ''
-  public name = 'Controle financeiro'
-  public bottomLabel = 65 + '%'
-  public options = {
-    hasNeedle: true,
-    needleColor: '#343A40',
-    needleUpdateSpeed: 1000,
-    arcColors: ['rgb(255,84,84)', 'rgb(239,214,19)', 'rgb(61,204,91)'],
-    arcDelimiters: [30, 70],
-    rangeLabel: ['0', '100'],
-    needleStartValue: 50,
-  }
-
-  // Cálculo a ser feito para achar a porcentagem do controle finac.
-  // const valor =  100 - ((100 * this.somaDespesa) / this.somaReceita)
 
   getMesAtual() {
     let data = new Date();
@@ -83,6 +60,15 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  getMesByIdTeste() {
+    this.mesService.getByIdMes(this.idMes).subscribe((resp: Mes) => {
+      this.mesAtual = resp
+
+      // Chama a função para verificar as transações do usuário
+      this.getTransacaoUser()
+    })
+  }
+
   // Verifica as transações feitas pelo usuário no mês atual
   getTransacaoUser() {
     for (let transacao of this.mesAtual.transacao) {
@@ -95,7 +81,9 @@ export class DashboardComponent implements OnInit {
     }
     this.balanco = this.somaReceita - this.somaDespesa
 
-    // Percentual do controle financeiro
+    // Faz o cálculo de controle financeiro
+    const perc =  100 - ((100 * this.somaDespesa) / this.somaReceita)
+    sessionStorage.setItem('percentual', perc.toString())
   }
 
   // Verifica as transações feitas pelo usuário no ano atual
