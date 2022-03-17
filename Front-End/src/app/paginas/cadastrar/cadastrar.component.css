@@ -1,0 +1,50 @@
+#login {
+    height: 100vh;
+}
+
+.titulo span a {
+    color: var(--vermelho);
+    font-weight: 600;
+}
+
+.titulo h2 {
+    font-weight: 600;
+}
+
+#cadastrar-img {
+    width: 80%;
+    height: 80%;
+    background: url(/assets/imagens/login.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+form button {
+    background: linear-gradient(to right, var(--preto), #585D63);
+    border: none;
+    width: 100%;
+    color: #fff;
+    transition: .5s;
+    opacity: 1;
+}
+
+.btn-custom {
+    background: linear-gradient(to right, #FF725E, #C53F3F) !important;
+}
+
+form button:hover {
+    opacity: .9;
+}
+
+@media (max-width: 768px) {
+    #entrar-img {
+        display: none;
+    }
+    .botoes,
+    #cadastrar-form {
+        margin-top: 10px !important;
+    }
+    .btn-custom {
+        margin-top: 15px;
+    }
+}

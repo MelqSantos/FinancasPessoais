@@ -1,0 +1,58 @@
+<div class="content-20">
+    <div class="row d-flex align-items-center mb-4">
+        <div class="col-md-12">
+            <div class="d-flex align-items-center">
+                <mat-icon class="mr-2">savings</mat-icon>
+                <h1 class="h1-title m-0">Economias</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex align-items-center mb-4">
+
+        <div id="img-savings" class="col-md-4 ml-0 d-flex justify-content-center align-items-center">
+            <img src="/assets/imagens/cofre.png">
+        </div>
+
+        <div class="col-md-6 text-center">
+            <h1 class="h1-title">{{economiaTotal | currency:'BRL'}}</h1>
+            <div class="valores d-flex justify-content-center">
+                <div class="mes mr-3">
+                    <p class="mb-0">Esse mês</p>
+                    <p>+ {{economiaMesAtual | currency:'BRL'}}</p>
+                </div>
+                <div class="quantidade ml-3">
+                    <p class="mb-0">Qtd total</p>
+                    <p>{{listaInvestimentos.length}} vezes.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Núm.</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Mês</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listaInvestimentos | orderBy: key : reverse">
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.descricao}}</td>
+                    <td>{{item.valor | currency:'BRL'}}</td>
+                    <td>
+                        <mat-icon class="mr-1 text-success">north</mat-icon>
+                        {{item.categoria.descricao}}
+                    </td>
+                    <td>{{item.mes.descricao}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

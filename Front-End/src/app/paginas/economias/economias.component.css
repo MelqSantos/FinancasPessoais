@@ -1,0 +1,23 @@
+p {
+    color: var(--cinza);
+}
+
+td,
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#img-savings img {
+    width: 60%;
+    height: 60%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.mes p:nth-child(2),
+.quantidade p:nth-child(2) {
+    margin-top: 0;
+    color: #000;
+}

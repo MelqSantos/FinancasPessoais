@@ -1,0 +1,146 @@
+<div class="content-20">
+
+    <div class="row d-flex align-items-center mb-4">
+        <div class="col-md-8">
+            <div class="d-flex align-items-center">
+                <mat-icon class="mr-2">grid_view</mat-icon>
+                <h1 class="h1-title m-0">Categorias</h1>
+            </div>
+            <p class="mt-1">Adicione aqui as categorias que julgar necessário... <br>Ex: Fixa, variável, etc.</p>
+        </div>
+
+        <div class="col-md-4">
+            <button type="button" class="btn btn-editar d-flex align-items-center" data-toggle="modal" data-target="#exampleModal">
+                <mat-icon>add</mat-icon>
+                Adicionar
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let categoria of listaCategorias">
+                    <th scope="row">{{categoria.id}}</th>
+                    <td>{{categoria.descricao}}</td>
+                    <td>
+                        <button value="{{categoria.id}}" #ref (click)="getByIdCategoria(ref.value)" class="btn btn-editar mr-2" data-toggle="modal" data-target="#modalThree">
+                            <mat-icon>edit_note</mat-icon>
+                        </button>
+                        <button value="{{categoria.id}}" #ref (click)="getByIdCategoria(ref.value)" class="btn btn-apagar" data-toggle="modal" data-target="#modalTwo">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Início modal 01 (Adicionar) -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
+                        <mat-icon class="mr-2">grid_view</mat-icon>Adicionar categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="desc" class="col-form-label">Descrição</label>
+                            <input type="text" class="form-control" id="desc" name="desc" [(ngModel)]="categoria.descricao">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="cadastrar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>add</mat-icon>
+                        Cadastrar
+                    </button>
+                    <button type="button" class="btn btn-apagar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>close</mat-icon>Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim modal 01 -->
+
+    <!-- Início modal 02 (Deletar) -->
+    <div class="modal fade" id="modalTwo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
+                        <mat-icon class="mr-2">delete_forever</mat-icon>Apagar categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja deletar a categoria abaixo?</p>
+                    <p class="d-flex align-items-center mt-1">
+                        <mat-icon class="mr-2">grid_view</mat-icon>
+                        <span id="descricao">{{categoriaUtil.descricao}}</span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="deletar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>delete_forever</mat-icon>
+                        Deletar
+                    </button>
+                    <button type="button" class="btn btn-apagar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>close</mat-icon>Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim modal 02 -->
+
+    <!-- Início modal 03 (Editar) -->
+    <div class="modal fade" id="modalThree" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
+                        <mat-icon class="mr-2">delete_forever</mat-icon>Editar categoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="desc" class="col-form-label">Nova descrição</label>
+                            <input type="text" class="form-control" id="desc" name="desc" [(ngModel)]="categoriaUtil.descricao">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="editar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>sync</mat-icon>
+                        Atualizar
+                    </button>
+                    <button type="button" class="btn btn-apagar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>close</mat-icon>Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim modal 03 -->
+
+</div>

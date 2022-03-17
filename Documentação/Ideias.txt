@@ -1,0 +1,7 @@
+- Adicionar e editar usuário (Com token)
+- Adicionar, editar e apagar categoria de despesas
+- Adicionar, editar e apagar despesas
+- Adicionar, editar e apagar receita do mês (Somar todas)
+- Criar sistema para adicionar lembrete (pagamentos e etc), com isso alertar o usuário com uma notificação quando chegar a data.
+- Dashboard de gastos e relatório de saldo do mês
+

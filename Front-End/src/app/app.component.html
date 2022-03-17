@@ -1,0 +1,96 @@
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav *ngIf="userService.logado()" id="sidebar" class="sticky-top">
+        <div class="sidebar-header d-flex justify-content-center align-items-end">
+            <img class="mr-2" src="/assets/imagens/icons/dollar.png" alt="Logo" width="50" height="50">
+            <h1 class="h1-title">Finanças</h1>
+        </div>
+
+        <div class="sidebar-body">
+
+            <!-- Menu -->
+            <div class="links">
+                <h3>Menu</h3>
+                <ul class="item list-unstyled">
+                    <li>
+                        <a routerLink="/dashboard">
+                            <mat-icon class="mr-2">speed</mat-icon>Dashboard</a>
+                    </li>
+                    <li>
+                        <a routerLink="/transacoes">
+                            <mat-icon class="mr-2">paid</mat-icon>Transações</a>
+                    </li>
+                    <li>
+                        <a routerLink="/economias">
+                            <mat-icon class="mr-2">savings</mat-icon>Economias</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Gerenciamento -->
+            <div class="links">
+                <h3>Gerenciamento</h3>
+                <ul class="item list-unstyled">
+                    <li>
+                        <a routerLink="/categorias">
+                            <mat-icon class="mr-2">grid_view</mat-icon>Categorias</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Configurações -->
+            <div class="links">
+                <h3>Configurações</h3>
+                <ul class="item list-unstyled">
+                    <li>
+                        <a routerLink="/perfil">
+                            <mat-icon class="mr-2">manage_accounts</mat-icon>Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void()" (click)="sair()">
+                            <mat-icon class="mr-2">logout</mat-icon>Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <!-- Início da navbar superior -->
+        <nav *ngIf="userService.logado()" class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <button (click)="toggle()" type="button" id="sidebarCollapse" class="btn btn-secondary d-flex justify-content-center align-items-center">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <button id="drop-btn" class="btn btn-secondary d-inline-block d-lg-none ml-auto m-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="botoes d-flex ml-auto">
+                        <button class="btn menu-btn shadow-none">
+                                <mat-icon>bedtime</mat-icon>
+                        </button>
+
+                        <button (click)="sair()" class="btn menu-btn shadow-none">
+                            <mat-icon class="mr-2">logout</mat-icon>Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Fim da navbar superior -->
+
+        <!-- Conteúdo aqui -->
+        <router-outlet></router-outlet>
+        <!-- Fim do conteúdo -->
+    </div>
+</div>

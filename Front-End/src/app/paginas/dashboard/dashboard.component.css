@@ -1,0 +1,111 @@
+.content-20 {
+    min-height: 80vh;
+}
+
+.card {
+    width: 22%;
+    height: 190px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card h5 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.card p {
+    color: var(--cinza);
+    font-style: italic;
+    font-size: 14px;
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+}
+
+.icon mat-icon {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, .5));
+}
+
+.dados .card:nth-child(1) .icon {
+    background-color: #FF725E;
+}
+
+.dados .card:nth-child(2) .icon {
+    background-color: #49B29F;
+}
+
+.dados .card:nth-child(3) .icon {
+    background-color: #DDE037;
+}
+
+.dados .card:nth-child(4) .icon {
+    background-color: #4BB249;
+}
+
+
+/* ---------- Balanco ---------- */
+
+.balanco {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #FF725E, #E8260B);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.icon-wrapper mat-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-wrapper {
+    padding: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgba(0, 0, 0, .15);
+}
+
+
+/* ---------- Gráfico ---------- */
+
+.dash {
+    width: 100%;
+    height: calc(80vh - 180px);
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .15);
+}
+
+.controle {
+    width: 100%;
+    height: calc(80vh - 240px);
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .15);
+}
+
+.controle h5 {
+    font-weight: 600;
+}

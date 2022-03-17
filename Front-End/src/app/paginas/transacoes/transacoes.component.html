@@ -1,0 +1,261 @@
+<div class="content-20">
+
+    <div class="row d-flex align-items-center mb-4">
+        <div class="col-md-12">
+            <div class="d-flex align-items-center">
+                <mat-icon class="mr-2">paid</mat-icon>
+                <h1 class="h1-title m-0">Transações</h1>
+            </div>
+
+            <div class="d-flex align-items-center py-2">
+                <h5 class="mb-0 mr-3">
+                    <mat-icon class="mr-1 text-success align-middle">north</mat-icon>
+                    <small>{{somaReceita | currency: 'BRL'}}</small>
+                </h5>
+
+                <h5 class="mb-0">
+                    <mat-icon class="mr-1 text-danger align-middle">south</mat-icon>
+                    <small>{{somaTransacao | currency: 'BRL'}}</small>
+                </h5>
+            </div>
+
+            <div class="botoes d-flex my-2">
+
+                <select (change)="getTransacaoUser()" class="form-control w-25" [(ngModel)]="mesConsulta">
+                    <option *ngFor="let mes of listaMeses" value="{{mes.id}}">{{mes.descricao}}</option>
+                  </select>
+
+                <button type="button" class="btn btn-editar d-flex align-items-center ml-auto" data-toggle="modal" data-target="#exampleModal">
+                    <mat-icon>add</mat-icon>
+                    Adicionar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Núm.</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Mês</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let item of transacaoMesUser | orderBy: key : reverse">
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.descricao}}</td>
+                    <td>{{item.valor | currency:'BRL'}}</td>
+                    <td>
+                        <mat-icon *ngIf="item.tipo == 'Receita'" class="mr-1 text-success align-middle">north</mat-icon>
+                        <mat-icon *ngIf="item.tipo == 'Despesa'" class="mr-1 text-danger align-middle">south</mat-icon>
+                        {{item.tipo}}
+                    </td>
+                    <td>{{item.categoria.descricao}}</td>
+                    <td>{{item.mes.descricao}}</td>
+                    <td>
+                        <button class="btn btn-editar mr-2" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalThree">
+                            <mat-icon>edit_note</mat-icon>
+                        </button>
+                        <button class="btn btn-apagar" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalTwo">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="transacaoMesUser.length == 0">
+                    <th colspan="100%" scope="row">
+                        <mat-icon class="text-danger mr-1 align-middle">close</mat-icon>Sem transações nesse período
+                    </th>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Início modal 01 (Adicionar) -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
+                        <mat-icon class="mr-2">paid</mat-icon>Adicionar movimentação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="desc" class="col-form-label">Descrição</label>
+                            <input type="text" class="form-control" id="desc" name="desc" [(ngModel)]="transacao.descricao">
+                        </div>
+
+                        <div class="row d-flex align-items-center">
+                            <div class="form-group col-md-6">
+                                <label for="valor" class="col-form-label">Valor</label>
+                                <input type="text" class="form-control" id="valor" name="valor" currencyMask [options]="{prefix: 'R$ ', thousands: '.', decimal:',', align:'left'}" [(ngModel)]="transacao.valor">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="tipo">Tipo</label>
+                                <select (change)="tipoTr($event)" class="form-control" id="tipo" name="tipo">
+                              <option selected>Selecione</option>
+                              <option>Despesa</option>
+                              <option>Receita</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categoria">Categoria</label>
+                            <select (change)="getCategoriaById()" class="form-control" id="categoria" name="categoria" [(ngModel)]="idCategoria">
+                          <option *ngFor="let categoria of listaCategorias" value="{{categoria.id}}">{{categoria.descricao}}</option>
+                        </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mes">Mês</label>
+                            <select (change)="getMesById()" class="form-control" id="mes" name="mes" [(ngModel)]="idMes">
+                                <option value="1">Janeiro</option>
+                                <option value="2">Fevereiro</option>
+                                <option value="3">Março</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Maio</option>
+                                <option value="6">Junho</option>
+                                <option value="7">Julho</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                        </select>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button (click)="cadastrar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>add</mat-icon>
+                        Adicionar
+                    </button>
+                    <button type="button" class="btn btn-apagar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>close</mat-icon>Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim modal 01 -->
+
+    <!-- Início modal 02 (Deletar) -->
+    <div class="modal fade" id="modalTwo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
+                        <mat-icon class="mr-2">delete_forever</mat-icon>Apagar Transação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja deletar a movimentação abaixo?</p>
+                    <p class="d-flex align-items-center mt-1">
+                        <mat-icon class="mr-2">paid</mat-icon>
+                        <span id="descricao">{{transacaoUtil.descricao}}</span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="apagar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>delete_forever</mat-icon>
+                        Deletar
+                    </button>
+                    <button type="button" class="btn btn-apagar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>close</mat-icon>Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim modal 02 -->
+
+    <!-- Início modal 03 (Editar) -->
+    <div class="modal fade" id="modalThree" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
+                        <mat-icon class="mr-2">edit_notes</mat-icon>Editar transação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="desc" class="col-form-label">Descrição</label>
+                            <input type="text" class="form-control" id="desc" name="desc" [(ngModel)]="transacaoUtil.descricao">
+                        </div>
+
+                        <div class="row d-flex align-items-center">
+                            <div class="form-group col-md-6">
+                                <label for="valor" class="col-form-label">Valor</label>
+                                <input type="text" class="form-control" id="valor" name="valor" currencyMask [options]="{prefix: 'R$ ', thousands: '.', decimal:',', align:'left'}" [(ngModel)]="transacaoUtil.valor">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="tipo">Tipo</label>
+                                <select (change)="tipoTr($event)" class="form-control" id="tipo" name="tipo">
+                              <option selected>Selecione</option>
+                              <option>Despesa</option>
+                              <option>Receita</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categoria">Categoria</label>
+                            <select (change)="getCategoriaById()" class="form-control" id="categoria" name="categoria" [(ngModel)]="idCategoria">
+                          <option *ngFor="let categoria of listaCategorias" value="{{categoria.id}}">{{categoria.descricao}}</option>
+                        </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mes">Mês</label>
+                            <select (change)="getMesById()" class="form-control" id="mes" name="mes" [(ngModel)]="idMes">
+                                <option value="1">Janeiro</option>
+                                <option value="2">Fevereiro</option>
+                                <option value="3">Março</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Maio</option>
+                                <option value="6">Junho</option>
+                                <option value="7">Julho</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                        </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button (click)="editar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>sync</mat-icon>
+                        Atualizar
+                    </button>
+                    <button type="button" class="btn btn-apagar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>close</mat-icon>Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim modal 03 -->
+
+</div>

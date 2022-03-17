@@ -1,0 +1,95 @@
+<div class="content-20">
+    <div class="row">
+
+        <div class="col-md-8">
+            <div class="row dados d-flex justify-content-between">
+                <div class="card">
+                    <div class="icon">
+                        <mat-icon>moving</mat-icon>
+                    </div>
+                    <h5 class="mb-0 mt-2 px-2">Total de gastos</h5>
+                    <p class="mb-0"> + {{mesAtual.descricao}}</p>
+                    <h5 class="mt-1">{{somaDespesa | currency: 'BRL'}}</h5>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <mat-icon>paid</mat-icon>
+                    </div>
+                    <h5 class="mb-0 mt-2 px-2">Receita</h5>
+                    <p class="mb-0"> + {{mesAtual.descricao}}</p>
+                    <h5 class="mt-1">{{somaReceita | currency: 'BRL'}}</h5>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <mat-icon>calculate</mat-icon>
+                    </div>
+                    <h5 class="mb-0 mt-2 px-2">Total anual</h5>
+                    <p class="mb-0"> + Gastos 2022</p>
+                    <h5 class="mt-1">{{somaAnualDespesas | currency: 'BRL'}}</h5>
+                </div>
+                <div class="card">
+                    <div class="icon">
+                        <mat-icon>savings</mat-icon>
+                    </div>
+                    <h5 class="mb-0 mt-2 px-2">Economias</h5>
+                    <p class="mb-0"> + 2022</p>
+                    <h5 class="mt-1">{{somaEconomia | currency: 'BRL'}}</h5>
+                </div>
+            </div>
+
+            <!-- Gráfico -->
+            <div class="row">
+                <div class="dash">
+                    <app-grafico class="d-flex justify-content-center pt-2"></app-grafico>
+                </div>
+            </div>
+        </div>
+
+        <!-- Balanço -->
+        <div class="col-md-4 sticky-top">
+
+            <div class="balanco">
+                <div class="valor text-white pl-4">
+                    <h2 class="mb-0">{{balanco | currency: 'BRL'}}</h2>
+                    <p>Balanço atual</p>
+                </div>
+
+                <div class="status px-4 text-white d-flex justify-content-between">
+                    <div class="tipo d-flex align-items-center">
+                        <div class="icon-wrapper mr-2">
+                            <mat-icon class="text-success">north</mat-icon>
+                        </div>
+                        <p class="mb-0">Receita</p>
+                    </div>
+                    <p class="mb-0">{{somaReceita | currency: 'BRL'}}</p>
+                </div>
+
+                <div class="status px-4 mt-2 text-white d-flex justify-content-between">
+                    <div class="tipo d-flex align-items-center">
+                        <div class="icon-wrapper mr-2">
+                            <mat-icon class="text-danger">south</mat-icon>
+                        </div>
+                        <p class="mb-0">Despesa</p>
+                    </div>
+                    <p class="mb-0">{{somaDespesa | currency: 'BRL'}}</p>
+                </div>
+
+                <div class="status px-4 mt-2 text-white d-flex justify-content-between">
+                    <div class="tipo d-flex align-items-center">
+                        <div class="icon-wrapper mr-2">
+                            <mat-icon class="text-dark">iso</mat-icon>
+                        </div>
+                        <p class="mb-0">Balanço</p>
+                    </div>
+                    <p class="mb-0">{{balanco | currency: 'BRL'}}</p>
+                </div>
+            </div>
+
+            <div class="controle d-flex flex-column align-items-center justify-content-center">
+                <app-gauge-chart></app-gauge-chart>
+            </div>
+        </div>
+    </div>
+
+
+</div>

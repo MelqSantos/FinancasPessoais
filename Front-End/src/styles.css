@@ -1,0 +1,78 @@
+:root {
+    --vermelho: #FF725E;
+    --preto: #343A40;
+    --cinza: #5a5a5a;
+}
+
+* :not(mat-icon, i) {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+html,
+body {
+    height: 100%;
+    background-color: #ebebeb;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.h1-title {
+    font-size: 1.5rem;
+}
+
+.content-20 {
+    padding: 0 20px;
+}
+
+.btn-apagar {
+    background: linear-gradient(to right, #FF725E, #C53F3F);
+    color: #ebebeb;
+    border: none;
+}
+
+.btn-apagar:hover {
+    background: linear-gradient(to right, #f55c48, #ca3131);
+    color: #ebebeb;
+}
+
+.btn-editar {
+    background: linear-gradient(to right, var(--preto), #585D63);
+    color: #ebebeb;
+    border: none;
+}
+
+.btn-editar:hover {
+    background: linear-gradient(to right, #2e3338, #4a4f55);
+    color: #ebebeb;
+}
+
+
+/* Gauge-chart */
+
+mwl-gauge {
+    width: 200px;
+    height: 200px;
+    display: block;
+    padding: 10px;
+}
+
+mwl-gauge.three>.gauge>.dial {
+    stroke: #334455;
+    stroke-width: 5;
+}
+
+mwl-gauge.three>.gauge>.value {
+    stroke: #c9de3c;
+    stroke-width: 8;
+}
+
+mwl-gauge.three>.gauge>.value-text {
+    fill: #c9de3c;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-shadow: 1px 1px rgba(0, 0, 0, .3);
+    font-size: 1em;
+}

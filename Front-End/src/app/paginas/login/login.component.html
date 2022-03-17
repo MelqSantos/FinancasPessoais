@@ -1,0 +1,39 @@
+<div class="container-fluid">
+
+    <div id="login" class="row">
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <div id="entrar-img"></div>
+        </div>
+
+        <div id="entrar-form" class="col-md-6 d-flex flex-column justify-content-center">
+
+            <div class="row">
+                <div class="col-md-10 titulo">
+                    <h2>Login</h2>
+                    <h5 class="mb-3">Ainda não tem uma conta? <span><a routerLink="/cadastrar">Cadastre-se</a></span></h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 pb-4">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="email@email.com" [(ngModel)]="userLogin.email">
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha de 8 dígitos" [(ngModel)]="userLogin.senha">
+                        </div>
+
+                        <button (click)="logar()" type="submit" class="btn d-flex align-items-center justify-content-center mt-4">
+                            <mat-icon class="mr-2">login</mat-icon>Login
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

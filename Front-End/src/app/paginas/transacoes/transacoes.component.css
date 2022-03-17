@@ -1,0 +1,13 @@
+p {
+    color: var(--cinza);
+}
+
+td,
+th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#descricao {
+    font-weight: 600;
+}

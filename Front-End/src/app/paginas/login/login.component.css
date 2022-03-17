@@ -1,0 +1,39 @@
+#login {
+    height: 100vh;
+}
+
+.titulo span a {
+    color: var(--vermelho);
+    font-weight: 600;
+}
+
+.titulo h2 {
+    font-weight: 600;
+}
+
+#entrar-img {
+    width: 75%;
+    height: 75%;
+    background: url(/assets/imagens/piggy.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+form button {
+    background: linear-gradient(to right, var(--preto), #585D63);
+    width: 100%;
+    color: #fff;
+    transition: .5s;
+    opacity: 1;
+    border: none !important;
+}
+
+form button:hover {
+    opacity: .9;
+}
+
+@media (max-width: 768px) {
+    #entrar-img {
+        display: none;
+    }
+}
