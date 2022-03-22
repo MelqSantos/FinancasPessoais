@@ -31,6 +31,9 @@ export class TransacoesComponent implements OnInit {
   idUSer = environment.id;
   TipoTransacao: string;
 
+  catDesc: string;
+  mesDesc: string;
+
   idCategoria: number;
   idMes: number;
   mesConsulta: number;
@@ -109,6 +112,9 @@ export class TransacoesComponent implements OnInit {
   getByIdTransacao(id: string) {
     this.transacaoService.getById(Number(id)).subscribe((resp: Transacao) => {
       this.transacaoUtil = resp
+      
+      this.catDesc = this.transacaoUtil.categoria.descricao
+      this.mesDesc = this.transacaoUtil.mes.descricao
     })
   }
 

@@ -36,4 +36,7 @@ form button:hover {
     #entrar-img {
         display: none;
     }
+    #login .entrar-wrapper {
+        display: none !important;
+    }
 }

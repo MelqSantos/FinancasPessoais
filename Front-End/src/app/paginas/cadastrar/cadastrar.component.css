@@ -37,7 +37,13 @@ form button:hover {
 }
 
 @media (max-width: 768px) {
-    #entrar-img {
+    #login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    #cadastrar-img,
+    #cadastrar-wrapper {
         display: none;
     }
     .botoes,

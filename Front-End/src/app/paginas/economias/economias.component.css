@@ -21,3 +21,31 @@ th {
     margin-top: 0;
     color: #000;
 }
+
+.informacoes {
+    display: none;
+}
+
+.infoTransacao {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 5px;
+    row-gap: 5px;
+    text-align: center;
+}
+
+@media(max-width: 768px) {
+    .informacoes {
+        display: block;
+    }
+    /* Table */
+    thead tr th:first-child,
+    thead tr th:nth-child(4),
+    thead tr th:nth-child(5),
+    tbody th,
+    tbody tr td:nth-child(4),
+    tbody tr td:nth-child(5) {
+        display: none !important;
+        text-align: left;
+    }
+}

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       environment.email = this.userLogin.email
       environment.token = this.userLogin.token
 
-      this.router.navigate(['/dashboard'])
+      this.router.navigate(['/transacoes'])
     }, erro =>{
       if(erro.status == 500 || erro.status == 401){
         this.alerta.showAlertDanger("Usuário ou senha incorretos!")

@@ -63,7 +63,7 @@
 /* ---------- Balanco ---------- */
 
 .balanco {
-    width: 100%;
+    width: 100% !important;
     height: 250px;
     border-radius: 10px;
     background: linear-gradient(to right, #FF725E, #E8260B);
@@ -108,4 +108,30 @@
 
 .controle h5 {
     font-weight: 600;
+}
+
+@media(max-width: 768px) {
+    .col-md-4 {
+        padding: 0 !important;
+    }
+    .dash {
+        display: none !important;
+    }
+    .dados {
+        display: grid;
+        grid-template-columns: auto auto;
+        column-gap: 5px;
+        row-gap: 5px;
+    }
+    .card {
+        width: 49%;
+    }
+    .balanco {
+        margin: 15px 0 15px 0;
+    }
+    /* Gauge chart */
+    .controle {
+        height: 270px;
+        margin-bottom: 10px;
+    }
 }

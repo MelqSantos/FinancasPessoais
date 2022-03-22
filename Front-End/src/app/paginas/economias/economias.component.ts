@@ -14,6 +14,7 @@ import { Usuario } from 'src/model/Usuario';
 export class EconomiasComponent implements OnInit {
 
   user: Usuario = new Usuario();
+  transacao: Transacao = new Transacao();
 
   idUser = environment.id;
   listaTransacoes: Transacao[];
@@ -22,6 +23,9 @@ export class EconomiasComponent implements OnInit {
   economiaTotal: number = 0;
   economiaMesAtual: number = 0;
   mesAtual: number;
+
+  catDesc: string;
+  mesDesc: string;
 
   // Order pipe
   key = 'data'
@@ -57,6 +61,16 @@ export class EconomiasComponent implements OnInit {
       this.listaTransacoes = this.user.transacao
       this.economias()
     })
+  }
+
+  getByIdTransacao(id: string){
+    this.transacaoService.getById(Number(id)).subscribe((resp: Transacao) => {
+      this.transacao = resp
+
+      this.catDesc = this.transacao.categoria.descricao
+      this.mesDesc = this.transacao.mes.descricao
+    })
+
   }
 
   economias(){

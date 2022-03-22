@@ -60,6 +60,9 @@
                     <td>{{item.categoria.descricao}}</td>
                     <td>{{item.mes.descricao}}</td>
                     <td>
+                        <button class="btn btn-info" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalFour">
+                            <mat-icon>info</mat-icon>
+                        </button>
                         <button class="btn btn-editar mr-2" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalThree">
                             <mat-icon>edit_note</mat-icon>
                         </button>
@@ -257,5 +260,36 @@
         </div>
     </div>
     <!-- Fim modal 03 -->
+
+    <!-- Início modal 04 (Info) -->
+    <div class="modal fade" id="modalFour" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
+                        <mat-icon class="mr-2">info</mat-icon>Informações da movimentação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="infoTransacao">
+                        <p class="mr-4"><strong>ID: </strong><br>{{transacaoUtil.id}}</p>
+                        <p><strong>Descrição: </strong><br>{{transacaoUtil.descricao}}</p>
+                        <p><strong>Valor: </strong><br>{{transacaoUtil.valor | currency: 'BRL'}}</p>
+                        <p><strong>Tipo: </strong><br>{{transacaoUtil.tipo}}</p>
+                        <p><strong>Categoria: </strong><br>{{catDesc}}</p>
+                        <p><strong>Mês: </strong><br>{{mesDesc}}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-apagar d-flex align-items-center" data-dismiss="modal">
+                        <mat-icon>close</mat-icon>Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim modal 04 -->
 
 </div>

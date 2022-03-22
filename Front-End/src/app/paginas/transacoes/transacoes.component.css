@@ -8,6 +8,55 @@ th {
     vertical-align: middle;
 }
 
+.btn-info {
+    display: none;
+}
+
 #descricao {
     font-weight: 600;
+}
+
+.infoTransacao {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 5px;
+    row-gap: 5px;
+    text-align: center;
+}
+
+@media(max-width: 768px) {
+    .botoes select {
+        width: 50% !important;
+    }
+    /* Table */
+    thead tr th:first-child,
+    thead tr th:nth-child(4),
+    thead tr th:nth-child(5),
+    thead tr th:nth-child(6),
+    tbody th,
+    tbody tr td:nth-child(4),
+    tbody tr td:nth-child(5),
+    tbody tr td:nth-child(6) {
+        display: none !important;
+        text-align: left;
+    }
+    /* Botões */
+    tbody tr td:nth-child(7) {
+        display: flex;
+    }
+    tbody button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px !important;
+        height: 30px !important;
+        margin: 0 !important;
+        margin: 0 2.5px !important;
+    }
+    .btn-info {
+        display: block;
+    }
+    tbody button mat-icon {
+        font-size: 18px !important;
+    }
 }
