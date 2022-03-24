@@ -36,7 +36,7 @@ export class GraficoComponent implements OnInit {
       const myChart = new Chart('myChart', {
         type: 'line',
         data: {
-            labels: ['Janeiro', 'Fevereiro', 'Março'],
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
             datasets: [{
                 label: 'Despesa',
                 data: this.listaDespesaMes,
@@ -81,10 +81,8 @@ export class GraficoComponent implements OnInit {
           this.somaReceita += transacao.valor
         }
       }
-        // if(mes.id <= 3){
         this.listaDespesaMes.push(this.somaDespesa)
         this.listaReceitaMes.push(this.somaReceita)
-        // }
       }
     }
 

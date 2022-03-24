@@ -13,9 +13,14 @@
                     <small>{{somaReceita | currency: 'BRL'}}</small>
                 </h5>
 
-                <h5 class="mb-0">
+                <h5 class="mb-0 mr-3">
                     <mat-icon class="mr-1 text-danger align-middle">south</mat-icon>
                     <small>{{somaTransacao | currency: 'BRL'}}</small>
+                </h5>
+
+                <h5 class="mb-0">
+                    <mat-icon class="mr-1 align-middle">account_balance</mat-icon>
+                    <small>{{somaReceita - somaTransacao  | currency: 'BRL'}}</small>
                 </h5>
             </div>
 

@@ -92,11 +92,14 @@ export class TransacoesComponent implements OnInit {
 
     // Busca as transações feitas pelo usuário no mês atual
     for (let transacao of this.user.transacao) {
+      
       if (transacao.mes.id == this.mesConsulta) {
         this.transacaoMesUser.push(transacao)
+
         if (transacao.tipo == "Despesa") {
           this.somaTransacao += transacao.valor
-        } else if (transacao.tipo == "Receita") {
+        } else 
+        if (transacao.tipo == "Receita") {
           this.somaReceita += transacao.valor
         }
       }
@@ -163,7 +166,6 @@ export class TransacoesComponent implements OnInit {
       this.alerta.showAlertWarning('Favor verificar os campos vazios.')
     }
     else {
-      console.log(this.transacao)
       // POST dos dados
       this.transacaoService.postTransacao(this.transacao).subscribe((resp: Transacao) => {
         this.transacao = resp
