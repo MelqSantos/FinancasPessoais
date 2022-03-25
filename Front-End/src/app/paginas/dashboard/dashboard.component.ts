@@ -80,11 +80,6 @@ export class DashboardComponent implements OnInit {
       }
     }
     this.balanco = this.somaReceita - this.somaDespesa
-
-    // Faz o cálculo de controle financeiro
-    let perc =  100 - ((100 * this.somaDespesa) / this.somaReceita)
-    let valor = perc.toFixed(2) // Arredonda o valor para 2 casas decimais
-    sessionStorage.setItem('percentual', valor.toString())
   }
 
   // Verifica as transações feitas pelo usuário no ano atual

@@ -38,7 +38,9 @@ export class TransacoesComponent implements OnInit {
   idMes: number;
   mesConsulta: number;
   somaTransacao: number = 0;
+  gastos: number = 0;
   somaReceita: number = 0;
+  ganhos: number = 0;
 
   // Order pipe
   key = 'data'
@@ -103,6 +105,10 @@ export class TransacoesComponent implements OnInit {
           this.somaReceita += transacao.valor
         }
       }
+      // Faz o cálculo de controle financeiro
+    let perc =  100 - ((100 * this.somaTransacao) / this.somaReceita)
+    let valor = perc.toFixed(2) // Arredonda o valor para 2 casas decimais
+    sessionStorage.setItem('percentual', valor.toString())
     }
   }
 
@@ -132,6 +138,20 @@ export class TransacoesComponent implements OnInit {
       this.mes = resp
     })
   }
+
+  getMesByIdPerc() {
+    let data = new Date()
+    let mes = data.getMonth() + 1
+
+    this.mesService.getByIdMes(mes).subscribe((resp: Mes) => {
+      this.mes = resp
+
+      // Chama a função para verificar as transações do usuário
+      this.getTransacaoUser()
+    })
+  }
+
+
 
   // Verificação do tipo da transação escolhida
   tipoTr(event: any) {
