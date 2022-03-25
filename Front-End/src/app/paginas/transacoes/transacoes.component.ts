@@ -107,6 +107,10 @@ export class TransacoesComponent implements OnInit {
       }
       // Faz o cálculo de controle financeiro
     let perc =  100 - ((100 * this.somaTransacao) / this.somaReceita)
+    if(perc < 0){
+      perc = 0;
+    }
+
     let valor = perc.toFixed(2) // Arredonda o valor para 2 casas decimais
     sessionStorage.setItem('percentual', valor.toString())
     }
