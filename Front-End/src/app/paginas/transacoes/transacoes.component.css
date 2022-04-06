@@ -12,6 +12,15 @@ th {
     display: none;
 }
 
+.btn-excel {
+    background-color: #4BB249;
+    color: #ebebeb;
+}
+
+.btn-excel:hover {
+    background-color: #3da33b;
+}
+
 #descricao {
     font-weight: 600;
 }
@@ -25,8 +34,15 @@ th {
 }
 
 @media(max-width: 768px) {
+    .botoes {
+        flex-direction: column;
+        align-items: center;
+    }
+    .botoes .acoes {
+        margin: .8rem 0 !important;
+    }
     .botoes select {
-        width: 50% !important;
+        width: 90% !important;
     }
     /* Table */
     thead tr th:first-child,

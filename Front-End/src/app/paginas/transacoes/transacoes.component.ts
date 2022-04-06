@@ -10,6 +10,7 @@ import { Categoria } from 'src/model/Categoria';
 import { Mes } from 'src/model/Mes';
 import { Transacao } from 'src/model/Transacao';
 import { Usuario } from 'src/model/Usuario';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-transacoes',
@@ -41,10 +42,14 @@ export class TransacoesComponent implements OnInit {
   gastos: number = 0;
   somaReceita: number = 0;
   ganhos: number = 0;
+  
+  // Excel
+  fileName: string = '';
 
   // Order pipe
   key = 'data'
   reverse = true
+
 
   constructor(
     private userService: UserService,
@@ -71,6 +76,24 @@ export class TransacoesComponent implements OnInit {
     this.getAllCategorias()
     this.getAllMeses()
   }
+  
+   exportexcel(): void
+  {
+    let meses = ['jan','fev','mar','abr','mai','jun', 'jul','ago','set','out','nov','dez']
+    // Nome do arquivo a ser exportado
+    this.fileName= 'Relatório_' + meses[this.mesConsulta - 1] + '.xlsx';
+
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+ 
+    // Gera a planilha
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+ 
+    // Salva o arquivo  
+    XLSX.writeFile(wb, this.fileName);
+ 
+  }
 
   getAllMeses() {
     this.mesService.getAll().subscribe((resp: Mes[]) => {
@@ -94,25 +117,25 @@ export class TransacoesComponent implements OnInit {
 
     // Busca as transações feitas pelo usuário no mês atual
     for (let transacao of this.user.transacao) {
-      
+
       if (transacao.mes.id == this.mesConsulta) {
         this.transacaoMesUser.push(transacao)
 
         if (transacao.tipo == "Despesa") {
           this.somaTransacao += transacao.valor
-        } else 
-        if (transacao.tipo == "Receita") {
-          this.somaReceita += transacao.valor
-        }
+        } else
+          if (transacao.tipo == "Receita") {
+            this.somaReceita += transacao.valor
+          }
       }
       // Faz o cálculo de controle financeiro
-    let perc =  100 - ((100 * this.somaTransacao) / this.somaReceita)
-    if(perc < 0){
-      perc = 0;
-    }
+      let perc = 100 - ((100 * this.somaTransacao) / this.somaReceita)
+      if (perc < 0) {
+        perc = 0;
+      }
 
-    let valor = perc.toFixed(2) // Arredonda o valor para 2 casas decimais
-    sessionStorage.setItem('percentual', valor.toString())
+      let valor = perc.toFixed(2) // Arredonda o valor para 2 casas decimais
+      sessionStorage.setItem('percentual', valor.toString())
     }
   }
 
@@ -125,7 +148,7 @@ export class TransacoesComponent implements OnInit {
   getByIdTransacao(id: string) {
     this.transacaoService.getById(Number(id)).subscribe((resp: Transacao) => {
       this.transacaoUtil = resp
-      
+
       this.catDesc = this.transacaoUtil.categoria.descricao
       this.mesDesc = this.transacaoUtil.mes.descricao
     })
@@ -150,6 +173,7 @@ export class TransacoesComponent implements OnInit {
     this.mesService.getByIdMes(mes).subscribe((resp: Mes) => {
       this.mes = resp
 
+      this.mesDesc = this.mes.descricao
       // Chama a função para verificar as transações do usuário
       this.getTransacaoUser()
     })
