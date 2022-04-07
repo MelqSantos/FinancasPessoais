@@ -5,12 +5,12 @@ import { CategoriaService } from 'src/app/service/categoria.service';
 import { MesService } from 'src/app/service/mes.service';
 import { TransacaoService } from 'src/app/service/transacao.service';
 import { UserService } from 'src/app/service/user.service';
+import { ExcelClass } from 'src/app/shared/excel-class';
 import { environment } from 'src/environments/environment.prod';
 import { Categoria } from 'src/model/Categoria';
 import { Mes } from 'src/model/Mes';
 import { Transacao } from 'src/model/Transacao';
 import { Usuario } from 'src/model/Usuario';
-import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-transacoes',
@@ -45,6 +45,10 @@ export class TransacoesComponent implements OnInit {
   
   // Excel
   fileName: string = '';
+  dadosExcel: any[] = [];
+  columns: any[];
+  footerData: any[][] = [];
+  total = 0;
 
   // Order pipe
   key = 'data'
@@ -56,6 +60,7 @@ export class TransacoesComponent implements OnInit {
     private categoriaService: CategoriaService,
     private transacaoService: TransacaoService,
     private mesService: MesService,
+    private excelClass: ExcelClass,
     private alerta: AlertaService,
     private router: Router
   ) { }
@@ -75,24 +80,43 @@ export class TransacoesComponent implements OnInit {
     this.getByIdUser()
     this.getAllCategorias()
     this.getAllMeses()
+
+    // Excel
+    this.columns = ['Núm. da transação','Descrição','Tipo','Categoria','Mês', 'Valor']
+
   }
   
-   exportexcel(): void
-  {
-    let meses = ['jan','fev','mar','abr','mai','jun', 'jul','ago','set','out','nov','dez']
+   exportexcel(): void {
+    this.getByIdUser()
+    this.total = 0;
+
+    let meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho', 'Agosto','Setembro','Outubro','Novembro','Dezembro']
+
     // Nome do arquivo a ser exportado
     this.fileName= 'Relatório_' + meses[this.mesConsulta - 1] + '.xlsx';
+ 
+      for(let dado of this.transacaoMesUser){
 
-    let element = document.getElementById('excel-table');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
-    // Gera a planilha
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
- 
-    // Salva o arquivo  
-    XLSX.writeFile(wb, this.fileName);
- 
+        this.dadosExcel.push({
+          Id: dado.id,
+          Descrição: dado.descricao,
+          Tipo: dado.tipo,
+          Categoria: dado.categoria.descricao,
+          Mês: dado.mes.descricao,
+          Valor: dado.valor
+        })
+        
+        if(dado.tipo == 'Despesa'){
+          this.total += dado.valor
+        }
+      }
+
+    // Soma das transações
+    this.footerData.push(['Total de despesas', '', '', '', '', this.total]);
+    
+    // Criação do arquivo Excel
+    let mes = meses[this.mesConsulta - 1]
+    this.excelClass.exportAsExcelFile(`Relatório de gastos - ${mes}`, '',this.columns, this.dadosExcel, this.footerData, `Relatório ${mes}`, mes)
   }
 
   getAllMeses() {
