@@ -88,7 +88,6 @@ export class TransacoesComponent implements OnInit {
   
    exportexcel(): void {
     this.getByIdUser()
-    this.total = 0;
 
     let meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho', 'Agosto','Setembro','Outubro','Novembro','Dezembro']
 
@@ -117,6 +116,10 @@ export class TransacoesComponent implements OnInit {
     // Criação do arquivo Excel
     let mes = meses[this.mesConsulta - 1]
     this.excelClass.exportAsExcelFile(`Relatório de gastos - ${mes}`, '',this.columns, this.dadosExcel, this.footerData, `Relatório ${mes}`, mes)
+
+    this.dadosExcel = []
+    this.footerData = []
+    this.total = 0
   }
 
   getAllMeses() {
