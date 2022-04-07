@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import * as logoFile from './logo'
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
+
 
 @Injectable({
     providedIn: 'root'
@@ -30,12 +32,20 @@ export class ExcelClass {
         workbook.lastModifiedBy = 'Melqui Santos';
         workbook.created = new Date();
         workbook.modified = new Date();
+
         const worksheet = workbook.addWorksheet(sheetName);
+        const logo = workbook.addImage({
+            base64: logoFile.logoBase64,
+            extension: 'png',
+        });
+        worksheet.addImage(logo, {
+            tl: { col: 1, row: 0 },
+            ext: { width: 65, height: 65 }
+        });
 
         /* Add Header Row */
         worksheet.addRow([]);
         worksheet.mergeCells('A1:' + this.numToAlpha(header.length - 1) + '3');
-        worksheet.getCell('A1').value = reportHeading;
         worksheet.getCell('A1').value = reportHeading;
         worksheet.getCell('A1').alignment = { horizontal: 'center', vertical: 'middle' };
         worksheet.getCell('A1').font = { size: 18, bold: true };
