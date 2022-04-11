@@ -60,7 +60,7 @@
             </thead>
             <tbody>
 
-                <tr *ngFor="let item of transacaoMesUser | orderBy: key : reverse">
+                <tr *ngFor="let item of transacaoMesUser">
                     <th scope="row">{{item.id}}</th>
                     <td>{{item.descricao}}</td>
                     <td>{{item.valor | currency:'BRL'}}</td>

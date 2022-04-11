@@ -50,11 +50,6 @@ export class TransacoesComponent implements OnInit {
   footerData: any[][] = [];
   total = 0;
 
-  // Order pipe
-  key = 'data'
-  reverse = true
-
-
   constructor(
     private userService: UserService,
     private categoriaService: CategoriaService,
@@ -164,6 +159,9 @@ export class TransacoesComponent implements OnInit {
       let valor = perc.toFixed(2) // Arredonda o valor para 2 casas decimais
       sessionStorage.setItem('percentual', valor.toString())
     }
+
+    // Ordena as transações
+    this.transacaoMesUser.sort((a, b) => (a.id < b.id) ? 1 : -1)
   }
 
   getAllCategorias() {

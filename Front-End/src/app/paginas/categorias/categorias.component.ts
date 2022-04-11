@@ -35,6 +35,9 @@ export class CategoriasComponent implements OnInit {
   getAll(){
     this.categoriaService.getAllCategorias().subscribe((resp: Categoria[]) => {
       this.listaCategorias = resp
+
+      // Ordena as categorias pelo Id
+      this.listaCategorias.sort((a, b) => (a.id < b.id) ? -1 : 1)
     })
   }
 
