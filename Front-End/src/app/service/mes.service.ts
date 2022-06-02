@@ -11,7 +11,7 @@ export class MesService {
 
   constructor(private http: HttpClient) { }
 
-  url = 'https://ms-financaspessoais.herokuapp.com/mes';
+  url = 'http://localhost:8080/mes';
   
   token = {
     headers: new HttpHeaders().set('Authorization', environment.token)

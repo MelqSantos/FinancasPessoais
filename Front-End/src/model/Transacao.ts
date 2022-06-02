@@ -7,6 +7,7 @@ export class Transacao{
     public descricao: string;
     public valor: number;
     public tipo: string;
+    public data: Date;
     
     // Relacionamentos
     public usuario: Usuario;

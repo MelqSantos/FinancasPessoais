@@ -13,7 +13,7 @@ export class CategoriaService {
     private http: HttpClient
   ) { }
 
-  url = 'https://ms-financaspessoais.herokuapp.com/categoria';
+  url = 'http://localhost:8080/categoria';
 
   token = {
     headers: new HttpHeaders().set('Authorization', environment.token)

@@ -1,6 +1,7 @@
 package com.financas.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,9 +30,10 @@ public class Transacao {
 	@DecimalMax(value = "999999.99", message = "O valor máximo permitido é: 999999.99")
 	private BigDecimal valor;
 	
-	
 	@NotBlank(message = "O atributo Tipo é obrigatório!")
 	private String tipo;
+	
+	private LocalDateTime data = LocalDateTime.now();
 	
 	/* --------- Relacionamento entre as tabelas --------- */
 	
@@ -71,6 +73,14 @@ public class Transacao {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+	
+	public LocalDateTime getData() {
+		return data;
+	}
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
 	}
 
 	public String getTipo() {

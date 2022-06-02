@@ -18,7 +18,7 @@ export class UserService {
     public alerta: AlertaService
     ) { }
 
-    url = 'https://ms-financaspessoais.herokuapp.com/usuario';
+    url = 'http://localhost:8080/usuario';
 
     token = {
       headers: new HttpHeaders().set('Authorization', environment.token)

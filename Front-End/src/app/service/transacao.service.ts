@@ -11,7 +11,7 @@ export class TransacaoService {
 
   constructor(private http: HttpClient) { }
 
-  url = 'https://ms-financaspessoais.herokuapp.com/transacao';
+  url = 'http://localhost:8080/transacao';
 
   token = {
     headers: new HttpHeaders().set('Authorization', environment.token)

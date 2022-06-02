@@ -54,7 +54,7 @@
                     <th scope="col">Valor</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Categoria</th>
-                    <th scope="col">Mês</th>
+                    <th scope="col">Registrado</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
@@ -70,7 +70,7 @@
                         {{item.tipo}}
                     </td>
                     <td>{{item.categoria.descricao}}</td>
-                    <td>{{item.mes.descricao}}</td>
+                    <td>{{item.data | date: 'shortDate'}} - <strong>{{item.data | date: 'mediumTime'}}</strong></td>
                     <td>
                         <button class="btn btn-info" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalFour">
                             <mat-icon>info</mat-icon>
