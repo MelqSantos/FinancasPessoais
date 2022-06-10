@@ -25,6 +25,10 @@ export class TransacaoService {
     return this.http.get<Transacao>(this.url + "/" + id, this.token)
   }
 
+  getByMes(userId: number, mesId: number): Observable<Transacao[]>{
+    return this.http.get<Transacao[]>(this.url + "/mes/" + userId + "/" + mesId, this.token);
+  }
+
   postTransacao(transacao: Transacao):Observable<Transacao>{
     return this.http.post<Transacao>(this.url, transacao, this.token)
   }

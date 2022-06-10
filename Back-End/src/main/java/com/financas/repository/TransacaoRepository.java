@@ -12,4 +12,7 @@ import com.financas.model.Transacao;
 public interface TransacaoRepository extends JpaRepository<Transacao, Long>{
 
 	public List<Transacao> findByValor(BigDecimal valor);
+	
+	public List<Transacao> findByUsuario_idAndMes_id(Long userId,  Long mesId);
+	
 }

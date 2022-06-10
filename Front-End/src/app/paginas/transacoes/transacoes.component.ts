@@ -28,6 +28,7 @@ export class TransacoesComponent implements OnInit {
   listaMeses: Mes[];
   listaCategorias: Categoria[];
   transacaoMesUser: Transacao[] = [];
+  transacaoMesUser2: Transacao[];
 
   idUSer = environment.id;
   TipoTransacao: string;
@@ -75,6 +76,7 @@ export class TransacoesComponent implements OnInit {
     this.getByIdUser()
     this.getAllCategorias()
     this.getAllMeses()
+    // this.getTransacaoMesUser()
 
     // Excel
     this.columns = ['Núm. da transação','Descrição','Tipo','Categoria','Mês', 'Valor']
@@ -130,6 +132,13 @@ export class TransacoesComponent implements OnInit {
       this.getTransacaoUser()
     })
   }
+
+  // getTransacaoMesUser(){
+  //   this.transacaoService.getByMes(this.idUSer, this.mesConsulta)
+  //     .subscribe((resp: Transacao[]) => {
+  //       this.transacaoMesUser2 = resp;
+  //   })
+  // }
 
   getTransacaoUser() {
     // Zera as variáveis ao chamar novamente a função

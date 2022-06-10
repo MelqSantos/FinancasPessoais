@@ -43,10 +43,10 @@ public class TransacaoController {
 			.orElse(ResponseEntity.notFound().build());
 	}
 	
-	// Buscar transacao pelo valor
-	@GetMapping("/valor/{valor}")
-	public ResponseEntity<List<Transacao>> getByValor(@PathVariable BigDecimal valor){
-		return ResponseEntity.ok(transacaoRepository.findByValor(valor));
+	// Buscar transação do usuário corrente pelo mês
+	@GetMapping("/mes/{userId}/{mesId}")
+	public ResponseEntity<List<Transacao>> getByUser(@PathVariable("userId") Long userId, @PathVariable("mesId") Long mesId){
+		return ResponseEntity.ok().body(transacaoRepository.findByUsuario_idAndMes_id(userId, mesId));
 	}
 	
 	// Postar uma nova transacao
