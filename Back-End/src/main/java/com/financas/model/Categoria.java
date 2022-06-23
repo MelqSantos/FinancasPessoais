@@ -13,7 +13,9 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "tb_categoria")
 public class Categoria {
@@ -30,31 +32,5 @@ public class Categoria {
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("categoria")
 	private List<Transacao> transacao;
-	
-	/* --------- Getters and Setters --------- */
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public List<Transacao> getTransacao() {
-		return transacao;
-	}
-
-	public void setTransacao(List<Transacao> transacao) {
-		this.transacao = transacao;
-	}
 
 }
