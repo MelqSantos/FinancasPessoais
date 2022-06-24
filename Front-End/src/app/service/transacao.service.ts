@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Transacao } from 'src/model/Transacao';
+import { TransacaoUtil } from 'src/model/TransacaoUtil';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,14 @@ export class TransacaoService {
 
   getByMes(userId: number, mesId: number): Observable<Transacao[]>{
     return this.http.get<Transacao[]>(this.url + "/mes/" + userId + "/" + mesId, this.token);
+  }
+
+  getTotalMes(userId: number, mesId:number): Observable<TransacaoUtil>{
+    return this.http.get<TransacaoUtil>(this.url + "/" + userId + "/" + mesId + "/", this.token)
+  }
+
+  getTotalTransacoes(userId: number, mesId:number, tipo: string): Observable<TransacaoUtil>{
+    return this.http.get<TransacaoUtil>(this.url + "/" + userId + "/" + mesId + "/" + tipo, this.token)
   }
 
   postTransacao(transacao: Transacao):Observable<Transacao>{

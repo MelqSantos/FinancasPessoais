@@ -1,0 +1,61 @@
+.card-dash{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 25%;
+    height: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .25); 
+}
+
+.card-dash:nth-child(1){
+    border-left: solid 15px #4BB249;
+}
+
+.card-dash:nth-child(2){
+    border-left: solid 15px #FF725E;
+}
+
+.card-dash:nth-child(3){
+    border-left: solid 15px #49B29F;
+}
+
+.card-dash div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-dash p{
+    font-weight: 600;
+}
+
+.card-dash:nth-child(1) span,
+.card-dash:nth-child(1) h2
+{
+    color: #4BB249;
+    font-weight: 600;
+}
+
+.card-dash:nth-child(2) span,
+.card-dash:nth-child(2) h2
+{
+    color: #FF725E;
+    font-weight: 600;
+}
+
+.card-dash:nth-child(3) span,
+.card-dash:nth-child(3) h2
+{
+    color: #49B29F;
+    font-weight: 600;
+}
+
+.btn{
+    margin-bottom: -15px !important;
+}
+
+.btn-excel {
+    background-color: #4BB249;
+    color: #ffffff;
+}

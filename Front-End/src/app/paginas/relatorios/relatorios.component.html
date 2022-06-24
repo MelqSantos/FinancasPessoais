@@ -1,0 +1,119 @@
+<div class="content-20 bg-light mb-3">
+
+    <form class="row pt-2">
+        <div class="form-group col-md-2">
+            <label for="mes">Período</label>
+            <select class="form-control" id="mes" name="mes" (change)="trMesId($event)" [(ngModel)]="mesConsulta">
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="mes">Tipo</label>
+            <select class="form-control" (change)="trTipo($event)" id="tipo" name="tipo">
+                <option value="0" selected>Todos</option>
+                <option value="Despesa">Despesa</option>
+                <option value="Receita">Receita</option>
+            </select>
+        </div>
+
+        <div class="col-md-2 align-self-center">
+            <button type="submit" class="btn btn-editar d-flex align-items-center justify-content-center">
+                <mat-icon class="mr-2">search</mat-icon>Pesquisar
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="content-20 bg-light pt-4">
+    <div class="row d-flex align-items-center mb-4">
+        <div class="col-md-12 d-flex justify-content-around">
+            <div class="card-dash">
+                <h2>{{totalTransacoes.valor | currency: 'BRL'}}</h2>
+                <div>
+                    <p>Total de transações</p>
+                    <span>{{totalTransacoes.quantidade}}</span>
+                </div>
+            </div>
+
+            <div class="card-dash">
+                <h2>{{totalDespesa.valor | currency: 'BRL'}}</h2>
+                <div>
+                    <p>Total de despesas</p>
+                    <span>{{totalDespesa.quantidade}}</span>
+                </div>
+            </div>
+
+            <div class="card-dash">
+                <h2>{{totalReceita.valor | currency: 'BRL'}}</h2>
+                <div>
+                    <p>Total de receitas</p>
+                    <span>{{totalReceita.quantidade}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2 d-flex justify-content-center">
+        <div class="col-md-11">
+
+            <div class="d-flex align-items-center justify-content-between mt-2 mb-4">
+                <div class="d-flex">
+                    <mat-icon class="mr-2">paid</mat-icon>
+                    <h1 class="h1-title m-0">Transações {{mesDesc}}</h1>
+                </div>
+                <button type="button" class="btn btn-excel d-flex align-items-center">
+                    <mat-icon>file_download</mat-icon>
+                    Excel
+                </button>
+            </div>
+
+            <table class="table table-hover align-self-center" id="excel-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Núm.</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Registrado</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of transacoesMes">
+                        <th scope="row">{{item.id}}</th>
+                        <td>{{item.descricao}}</td>
+                        <td>{{item.valor | currency: 'BRL'}}</td>
+                        <td>
+                            <mat-icon *ngIf="item.tipo == 'Receita'" class="mr-1 text-success align-middle">north</mat-icon>
+                            <mat-icon *ngIf="item.tipo == 'Despesa'" class="mr-1 text-danger align-middle">south</mat-icon>
+                            Despesa
+                        </td>
+                        <td>{{item.categoria.descricao}}</td>
+                        <td>{{item.data | date: 'shortDate'}} - <strong>{{item.data | date: 'mediumTime'}}</strong></td>
+                    </tr>
+                   
+                    <tr *ngIf="transacoesMes.length==0">
+                        <th class="text-center" colspan="100%" scope="row">
+                            <mat-icon class="text-danger mr-1 align-middle">close</mat-icon>Sem transações nesse período
+                        </th>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

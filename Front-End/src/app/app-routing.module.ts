@@ -6,6 +6,7 @@ import { DashboardComponent } from './paginas/dashboard/dashboard.component';
 import { EconomiasComponent } from './paginas/economias/economias.component';
 import { LoginComponent } from './paginas/login/login.component';
 import { PerfilComponent } from './paginas/perfil/perfil.component';
+import { RelatoriosComponent } from './paginas/relatorios/relatorios.component';
 import { TransacoesComponent } from './paginas/transacoes/transacoes.component';
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'economias', component: EconomiasComponent},
   {path: 'categorias', component: CategoriasComponent},
   {path: 'perfil', component: PerfilComponent},
+  {path: 'relatorios', component: RelatoriosComponent}
 ];
 
 @NgModule({

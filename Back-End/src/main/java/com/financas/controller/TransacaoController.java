@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.financas.model.Transacao;
 import com.financas.repository.TransacaoRepository;
+import com.financas.utils.TransacaoUtil;
 
 @RestController
 @RequestMapping("/transacao")
@@ -47,6 +48,33 @@ public class TransacaoController {
 	@GetMapping("/mes/{userId}/{mesId}")
 	public ResponseEntity<List<Transacao>> getByUser(@PathVariable("userId") Long userId, @PathVariable("mesId") Long mesId){
 		return ResponseEntity.ok().body(transacaoRepository.findByUsuario_idAndMes_id(userId, mesId));
+	}
+	
+	// Buscar valor total e quantidade de transações de todos os tipos
+		@GetMapping("/{userId}/{mesId}")
+		public ResponseEntity<TransacaoUtil> getByMesTransacoes(@PathVariable Long userId,
+				@PathVariable Long mesId){
+			List<Transacao> dados = transacaoRepository.findByUsuario_idAndMes_id(userId, mesId);
+			BigDecimal valor = new BigDecimal(0);
+			
+			for(int x = 0; x < dados.size(); x++) {
+				valor = valor.add(dados.get(x).getValor());
+			}
+			return ResponseEntity.ok().body(new TransacaoUtil(valor, dados.size()));
+		}
+	
+	// Buscar valor total e quantidade de transações por tipo
+	@GetMapping("/{userId}/{mesId}/{tipo}")
+	public ResponseEntity<TransacaoUtil> getTotalTransacoes(@PathVariable Long userId,
+			@PathVariable Long mesId,
+			@PathVariable String tipo){
+		List<Transacao> dados = transacaoRepository.getTotalTransacoes(userId, mesId, tipo);
+		BigDecimal valor = new BigDecimal(0);
+		
+		for(int x = 0; x < dados.size(); x++) {
+			valor = valor.add(dados.get(x).getValor());
+		}
+		return ResponseEntity.ok().body(new TransacaoUtil(valor, dados.size()));
 	}
 	
 	// Postar uma nova transacao
