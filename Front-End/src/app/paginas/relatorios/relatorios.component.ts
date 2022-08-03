@@ -27,8 +27,9 @@ export class RelatoriosComponent implements OnInit {
   totalDespesa: TransacaoUtil;
 
   userId = environment.id;
-  mesConsulta: number;
   mesDesc: string;
+  mesConsulta: number;
+  tipoConsulta: string = "0";
 
   ngOnInit() {
     if (environment.token == "") {
@@ -40,7 +41,6 @@ export class RelatoriosComponent implements OnInit {
      this.mesConsulta = data.getMonth() + 1
      
      this.getAllMeses();
-     this.getTotalMes(this.userId, this.mesConsulta)
      this.getTotalTransacoes(this.userId, this.mesConsulta, "Despesa");
      this.getTotalTransacoes(this.userId, this.mesConsulta, "Receita");
      this.getByMes(this.userId, this.mesConsulta);
@@ -60,9 +60,9 @@ export class RelatoriosComponent implements OnInit {
     })
   }
 
-  getTotalMes(userId: number, mesId: number){
+  getTotalTransacoesMes(userId: number, mesId: number){
     this.transacaoService.getTotalMes(userId, mesId).subscribe((resp: TransacaoUtil) => {
-      this.totalTransacoes = resp
+      this.totalTransacoes = resp;
     })
   }
 
@@ -77,16 +77,17 @@ export class RelatoriosComponent implements OnInit {
   }
 
   trTipo(event: any) {
-    this.mesDesc = event.target.value
+    this.tipoConsulta = event.target.value
   }
 
   trMesId(event: any) {
     this.mesConsulta = event.target.value
-    
-    this.getTotalMes(this.userId, this.mesConsulta)
-     this.getTotalTransacoes(this.userId, this.mesConsulta, "Despesa");
-     this.getTotalTransacoes(this.userId, this.mesConsulta, "Receita");
-     this.getByMes(this.userId, this.mesConsulta);
+    this.getAllMeses();
+  }
+
+  searchByMes(){
+      this.getTotalTransacoes(this.userId, this.mesConsulta, this.tipoConsulta)
+      this.getByMes(this.userId, this.mesConsulta)
   }
 
 }

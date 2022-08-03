@@ -21,7 +21,7 @@
 
         <div class="form-group col-md-2">
             <label for="mes">Tipo</label>
-            <select class="form-control" (change)="trTipo($event)" id="tipo" name="tipo">
+            <select class="form-control" (change)="trTipo($event)" id="tipo" name="tipo" [(ngModel)]="tipoConsulta">
                 <option value="0" selected>Todos</option>
                 <option value="Despesa">Despesa</option>
                 <option value="Receita">Receita</option>
@@ -29,9 +29,14 @@
         </div>
 
         <div class="col-md-2 align-self-center">
-            <button type="submit" class="btn btn-editar d-flex align-items-center justify-content-center">
+            <button type="submit" class="btn btn-editar d-flex align-items-center justify-content-center" (click)="searchByMes()">
                 <mat-icon class="mr-2">search</mat-icon>Pesquisar
             </button>
+        </div>
+
+        <div class="col-md-2 ml-auto align-self-center d-flex justify-content-center align-items-center">
+            <mat-icon class="mr-2">event</mat-icon>
+            <span>{{mesDesc}}</span>
         </div>
     </form>
 </div>
@@ -40,26 +45,26 @@
     <div class="row d-flex align-items-center mb-4">
         <div class="col-md-12 d-flex justify-content-around">
             <div class="card-dash">
-                <h2>{{totalTransacoes.valor | currency: 'BRL'}}</h2>
+                <h2>{{totalReceita.valor | currency: 'BRL'}}</h2>
                 <div>
-                    <p>Total de transações</p>
-                    <span>{{totalTransacoes.quantidade}}</span>
+                    <h5>Receitas</h5>
+                    <span>{{totalReceita.quantidade}}x</span>
                 </div>
             </div>
 
             <div class="card-dash">
                 <h2>{{totalDespesa.valor | currency: 'BRL'}}</h2>
                 <div>
-                    <p>Total de despesas</p>
-                    <span>{{totalDespesa.quantidade}}</span>
+                    <h5>Despesas</h5>
+                    <span>{{totalDespesa.quantidade}}x</span>
                 </div>
             </div>
 
             <div class="card-dash">
-                <h2>{{totalReceita.valor | currency: 'BRL'}}</h2>
+                <h2>{{totalReceita.valor - totalDespesa.valor | currency: 'BRL'}}</h2>
                 <div>
-                    <p>Total de receitas</p>
-                    <span>{{totalReceita.quantidade}}</span>
+                    <h5>Saldo</h5>
+                    <!-- <span>{{totalReceita.quantidade + totalDespesa.quantidade}}x</span> -->
                 </div>
             </div>
         </div>
@@ -71,7 +76,7 @@
             <div class="d-flex align-items-center justify-content-between mt-2 mb-4">
                 <div class="d-flex">
                     <mat-icon class="mr-2">paid</mat-icon>
-                    <h1 class="h1-title m-0">Transações {{mesDesc}}</h1>
+                    <h1 class="h1-title m-0">Transações</h1>
                 </div>
                 <button type="button" class="btn btn-excel d-flex align-items-center">
                     <mat-icon>file_download</mat-icon>
@@ -104,7 +109,7 @@
                         <td>{{item.categoria.descricao}}</td>
                         <td>{{item.data | date: 'shortDate'}} - <strong>{{item.data | date: 'mediumTime'}}</strong></td>
                     </tr>
-                   
+
                     <tr *ngIf="transacoesMes.length==0">
                         <th class="text-center" colspan="100%" scope="row">
                             <mat-icon class="text-danger mr-1 align-middle">close</mat-icon>Sem transações nesse período
