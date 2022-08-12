@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Usuario } from 'src/model/Usuario';
 import { UsuarioLogin } from 'src/model/UsuarioLogin';
-import { AlertaService } from './alerta.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +13,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    public router: Router,
-    public alerta: AlertaService
+    public router: Router
     ) { }
 
     url = 'http://localhost:8080/usuario';

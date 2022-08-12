@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertaService } from 'src/app/service/alerta.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
 import { Usuario } from 'src/model/Usuario';
 
@@ -17,7 +17,7 @@ export class CadastrarComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private alerta: AlertaService
+    private alerta: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -30,11 +30,11 @@ export class CadastrarComponent implements OnInit {
   cadastrar(){
     // Validações dos campos
     if(this.user.senha != this.confirmaSenha){
-      this.alerta.showAlertDanger('As senhas não coincidem.')
+      this.alerta.showError('As senhas não coincidem!', 'Erro')
     } 
     else{
       if(this.user.nome == undefined || this.user.email == undefined){
-        this.alerta.showAlertWarning('Favor verificar os campos vazios.')
+        this.alerta.showWarning('Favor verificar os campos vazios!', 'Atenção')
       } 
       else{
         // POST dos dados
@@ -42,7 +42,7 @@ export class CadastrarComponent implements OnInit {
           this.user = resp;
   
           this.router.navigate(['/login'])
-          this.alerta.showAlertSuccess('Usuário cadastrado com sucesso!')
+          this.alerta.showSuccess('Usuário cadastrado!', 'Sucesso')
         })
       }
     }

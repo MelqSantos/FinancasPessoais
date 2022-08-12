@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertaService } from 'src/app/service/alerta.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { MesService } from 'src/app/service/mes.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { TransacaoService } from 'src/app/service/transacao.service';
 import { UserService } from 'src/app/service/user.service';
 import { ExcelClass } from 'src/app/shared/excel-class';
@@ -57,7 +57,8 @@ export class TransacoesComponent implements OnInit {
     private transacaoService: TransacaoService,
     private mesService: MesService,
     private excelClass: ExcelClass,
-    private alerta: AlertaService,
+    // private alerta: AlertaService,
+    private alerta: NotificationService,
     private router: Router
   ) { }
 
@@ -245,20 +246,20 @@ export class TransacoesComponent implements OnInit {
       campo.mes.id == undefined ||
       campo.categoria.id == undefined
     ) {
-      this.alerta.showAlertWarning('Favor verificar os campos vazios.')
+      this.alerta.showWarning('Favor verificar os campos vazios!', 'Atenção')
     }
     else {
       // POST dos dados
       this.transacaoService.postTransacao(this.transacao).subscribe((resp: Transacao) => {
         this.transacao = resp
 
-        this.alerta.showAlertSuccess('Transação adicionada com sucesso!')
+        this.alerta.showSuccess('Transação adicionada!', 'Sucesso')
         this.transacao = new Transacao()
         this.getByIdUser()
       },
         error => {
           if (error.status == 400) {
-            this.alerta.showAlertDanger(`HTTP: ${error.status} - Entre em contato com o administrador`)
+            this.alerta.showError('Entre em contato com o administrador!', `Erro HTTP: ${error.status}`)
           }
         })
     }
@@ -279,12 +280,12 @@ export class TransacoesComponent implements OnInit {
       campo.tipo == undefined ||
       campo.mes.id == undefined ||
       campo.categoria.id == undefined) {
-      this.alerta.showAlertWarning('Favor verificar os campos vazios.')
+      this.alerta.showWarning('Favor verificar os campos vazios!', 'Atenção')
     }
     else {
       this.transacaoService.editTransacao(this.transacaoUtil).subscribe((resp: Transacao) => {
         this.transacaoUtil = resp
-        this.alerta.showAlertInfo('Transação atualizada com sucesso!')
+        this.alerta.showInfo('Transação atualizada!', 'Sucesso')
 
         // Zera e atualiza as variáveis
         this.transacaoUtil = new Transacao();
@@ -292,7 +293,7 @@ export class TransacoesComponent implements OnInit {
       },
         error => {
           if (error.status == 400) {
-            this.alerta.showAlertDanger(`HTTP: ${error.status} - Entre em contato com o administrador`)
+            this.alerta.showError('Entre em contato com o administrador!', `HTTP: ${error.status}`)
           }
         })
     }
@@ -300,7 +301,7 @@ export class TransacoesComponent implements OnInit {
 
   apagar() {
     this.transacaoService.deleteTransacao(this.transacaoUtil.id).subscribe(() => {
-      this.alerta.showAlertSuccess('Transação deletada com sucesso!')
+      this.alerta.showSuccess('Transação deletada!', 'Sucesso')
 
       // Zera e atualiza as variáveis
       this.transacaoUtil = new Transacao();

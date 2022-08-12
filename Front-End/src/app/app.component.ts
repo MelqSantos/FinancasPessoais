@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
-import { AlertaService } from './service/alerta.service';
 import { UserService } from './service/user.service';
 import { Usuario } from 'src/model/Usuario';
+import { NotificationService } from './service/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent {
 constructor(
   public userService: UserService,
   public router: Router,
-  public alerta: AlertaService 
+  public alerta: NotificationService
 ){}
 
 ngOnInit(){
@@ -33,7 +33,7 @@ toggle(){
 // Função para limpar os dados do usuário e deslogar
 sair(){
   this.router.navigate(['/login'])
-  this.alerta.showAlertInfo('Usuário deslogado com sucesso!')
+  this.alerta.showInfo('Usuário deslogado!', 'Sucesso')
   environment.id = 0;
   environment.nome = '';
   environment.email = '';

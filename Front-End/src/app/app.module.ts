@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ToastrModule } from 'ngx-toastr';
 import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { OrderModule } from 'ngx-order-pipe';
@@ -57,6 +58,7 @@ import { RelatoriosComponent } from './paginas/relatorios/relatorios.component';
     GaugeModule,
     NgChartsModule,
     GaugeChartModule,
+    ToastrModule.forRoot(),
     ModalModule.forRoot(),
     GaugeModule.forRoot()
   ],

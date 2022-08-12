@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertaService } from 'src/app/service/alerta.service';
 import { CategoriaService } from 'src/app/service/categoria.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { environment } from 'src/environments/environment.prod';
 import { Categoria } from 'src/model/Categoria';
 
@@ -18,7 +18,7 @@ export class CategoriasComponent implements OnInit {
 
   constructor(
     private categoriaService: CategoriaService,
-    private alerta: AlertaService, 
+    private alerta: NotificationService, 
     private router: Router,
   ) { }
 
@@ -50,13 +50,13 @@ export class CategoriasComponent implements OnInit {
 
   cadastrar(){
     if(this.categoria.descricao == undefined){
-      this.alerta.showAlertWarning('Favor verificar os campos vazios.')
+      this.alerta.showWarning('Favor verificar os campos vazios!','Atenção')
     } 
     else{
       this.categoriaService.postCategoria(this.categoria).subscribe((resp: Categoria) =>{
         this.categoria = resp;
   
-        this.alerta.showAlertSuccess("Categoria cadastrada com sucesso!")
+        this.alerta.showSuccess('Categoria cadastrada!','sucesso')
         // Reseta o objeto categoria
         this.categoria = new Categoria();
         // Refresh na lista(Tabela) de categorias
@@ -68,7 +68,7 @@ export class CategoriasComponent implements OnInit {
   editar(){
     this.categoriaService.putCategoria(this.categoriaUtil).subscribe((resp: Categoria) => {
       this.categoria = resp
-      this.alerta.showAlertInfo("Categoria atualizada com sucesso!")
+      this.alerta.showInfo('Categoria atualizada!', 'Sucesso')
       
       // Zera e atualiza as variáveis
       this.categoriaUtil = new Categoria();
@@ -76,14 +76,14 @@ export class CategoriasComponent implements OnInit {
     },
     error => {
       if(error.status == 400){
-        this.alerta.showAlertWarning('[Erro] É necessário excluir as transações com esta categoria antes de editar.')
+        this.alerta.showWarning('É necessário excluir as transações com esta categoria antes de editar!', 'Atenção')
       }
     })
   }
   
   deletar(){
     this.categoriaService.deleteCategoria(this.categoriaUtil.id).subscribe(() => {
-      this.alerta.showAlertSuccess("Categoria deletada com sucesso!")
+      this.alerta.showSuccess('Categoria deletada!', 'Sucesso')
 
       // Zera e atualiza as variáveis
       this.categoriaUtil = new Categoria();

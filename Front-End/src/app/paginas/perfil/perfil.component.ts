@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertaService } from 'src/app/service/alerta.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
 import { environment } from 'src/environments/environment.prod';
 import { Usuario } from 'src/model/Usuario';
@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private alerta: AlertaService,
+    private alerta: NotificationService,
     private router: Router
   ) { }
 
@@ -48,7 +48,7 @@ export class PerfilComponent implements OnInit {
     this.userService.editar(this.user).subscribe((resp : Usuario) => {
       this.user = resp
       
-      this.alerta.showAlertInfo("Usuário alterado com sucesso, faça login novamente!")
+      this.alerta.showInfo('Usuário alterado com sucesso, faça login novamente!', 'Sucesso')
       this.router.navigate(['/login'])
       environment.id = 0;
       environment.nome = '';
@@ -56,7 +56,7 @@ export class PerfilComponent implements OnInit {
       environment.token = '';
     },
     error => {
-      this.alerta.showAlertWarning(`HTTP: ${error.status} - Entre em contato com o administrador.`)
+      this.alerta.showWarning('Entre em contato com o administrador!', `Erro HTTP: ${error.status}`)
     })
   }
 
