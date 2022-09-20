@@ -234,7 +234,7 @@ export class TransacoesComponent implements OnInit {
     this.transacao.categoria = this.categoria
 
     // Relacionamento Transação x Mes
-    this.mes.id = this.idMes
+    this.mes.id = this.mesConsulta
     this.transacao.mes = this.mes
 
     // Validações dos campos
@@ -270,7 +270,7 @@ export class TransacoesComponent implements OnInit {
 
     // Relacionamentos
     this.transacaoUtil.categoria = this.categoria
-    this.transacaoUtil.mes = this.mes
+    this.transacaoUtil.mes.id = this.mesConsulta
 
     // Validações dos campos
     let campo = this.transacaoUtil

@@ -54,7 +54,7 @@
                     <th scope="col">Valor</th>
                     <th scope="col">Tipo</th>
                     <th scope="col">Categoria</th>
-                    <th scope="col">Registrado</th>
+                    <th scope="col">Registro</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
@@ -136,7 +136,7 @@
 
                         <div class="form-group">
                             <label for="mes">Mês</label>
-                            <select (change)="getMesById()" class="form-control" id="mes" name="mes" [(ngModel)]="idMes">
+                            <select class="form-control" id="mes" name="mes" readonly="readonly" tabindex="-1" aria-disabled="true" [value]="mesConsulta">
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
                                 <option value="3">Março</option>
@@ -242,7 +242,7 @@
 
                         <div class="form-group">
                             <label for="mes">Mês</label>
-                            <select (change)="getMesById()" class="form-control" id="mes" name="mes" [(ngModel)]="idMes">
+                            <select class="form-control" id="mes" name="mes" readonly="readonly" tabindex="-1" aria-disabled="true" [value]="mesConsulta">
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
                                 <option value="3">Março</option>

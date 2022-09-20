@@ -25,6 +25,16 @@ th {
     font-weight: 600;
 }
 
+select[readonly] {
+    background: #eee;
+    pointer-events: none;
+    touch-action: none;
+}
+
+#mes:hover {
+    cursor: not-allowed;
+}
+
 .infoTransacao {
     display: grid;
     grid-template-columns: auto auto auto;
