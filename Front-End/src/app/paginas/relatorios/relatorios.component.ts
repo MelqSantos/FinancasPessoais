@@ -23,8 +23,8 @@ export class RelatoriosComponent implements OnInit {
   listaMeses: Mes[];
   transacoesMes: Transacao[];
   totalTransacoes: TransacaoUtil;
-  totalReceita: TransacaoUtil;
-  totalDespesa: TransacaoUtil;
+  // totalReceita: TransacaoUtil;
+  // totalDespesa: TransacaoUtil;
 
   userId = environment.id;
   mesDesc: string;
@@ -41,8 +41,9 @@ export class RelatoriosComponent implements OnInit {
      this.mesConsulta = data.getMonth() + 1
      
      this.getAllMeses();
-     this.getTotalTransacoes(this.userId, this.mesConsulta, "Despesa");
-     this.getTotalTransacoes(this.userId, this.mesConsulta, "Receita");
+     this.getTotalTransacoesMes(this.userId, this.mesConsulta)
+    //  this.getTotalTransacoes(this.userId, this.mesConsulta, "Despesa");
+    //  this.getTotalTransacoes(this.userId, this.mesConsulta, "Receita");
      this.getByMes(this.userId, this.mesConsulta);
   }
 
@@ -63,22 +64,29 @@ export class RelatoriosComponent implements OnInit {
   getTotalTransacoesMes(userId: number, mesId: number){
     this.transacaoService.getTotalMes(userId, mesId).subscribe((resp: TransacaoUtil) => {
       this.totalTransacoes = resp;
+
+      this.somatransacoes(resp);
     })
   }
 
-  getTotalTransacoes(userId: number, mesId: number, tipo: string){
-    this.transacaoService.getTotalTransacoes(userId, mesId, tipo).subscribe((resp: TransacaoUtil) => {
-      if(tipo == "Receita"){
-        this.totalReceita = resp
-      } else{
-        this.totalDespesa = resp
-      }
-    })
+  somatransacoes(transacoes: TransacaoUtil){
+    console.log(transacoes);
+      // Somar as informações do dash da tela relatórios
   }
 
-  trTipo(event: any) {
-    this.tipoConsulta = event.target.value
-  }
+  // getTotalTransacoes(userId: number, mesId: number){
+  //   this.transacaoService.getTotalTransacoes(userId, mesId).subscribe((resp: TransacaoUtil) => {
+  //     if(tipo == "Receita"){
+  //       this.totalReceita = resp
+  //     } else{
+  //       this.totalDespesa = resp
+  //     }
+  //   })
+  // }
+
+  // trTipo(event: any) {
+  //   this.tipoConsulta = event.target.value
+  // }
 
   trMesId(event: any) {
     this.mesConsulta = event.target.value
@@ -86,8 +94,9 @@ export class RelatoriosComponent implements OnInit {
   }
 
   searchByMes(){
-      this.getTotalTransacoes(this.userId, this.mesConsulta, this.tipoConsulta)
+      this.getTotalTransacoesMes(this.userId, this.mesConsulta)
       this.getByMes(this.userId, this.mesConsulta)
+      this.getAllMeses();
   }
 
 }

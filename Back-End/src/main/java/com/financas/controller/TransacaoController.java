@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.financas.repository.CustomRepository;
+import com.financas.repository.impl.CustomRepositoryImpl;
+import com.financas.utils.SomaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +32,9 @@ public class TransacaoController {
 	
 	@Autowired
 	private TransacaoRepository transacaoRepository;
-	
+
+    @Autowired CustomRepository customRepository;
+
 	// Buscar todas as despesas
 	@GetMapping
 	public ResponseEntity<List<Transacao>> getAll(){
@@ -52,30 +57,50 @@ public class TransacaoController {
 	
 	// Buscar valor total e quantidade de transações de todos os tipos
 		@GetMapping("/{userId}/{mesId}")
-		public ResponseEntity<TransacaoUtil> getByMesTransacoes(@PathVariable Long userId,
+		public ResponseEntity<SomaUtil> getByMesTransacoes(@PathVariable Long userId,
 				@PathVariable Long mesId){
+
+			SomaUtil transacaoInfo = new SomaUtil();
+
 			List<Transacao> dados = transacaoRepository.findByUsuario_idAndMes_id(userId, mesId);
+			TransacaoUtil despesa = customRepository.getTotalTransacoes(userId, mesId, "Despesa");
+			TransacaoUtil receita = customRepository.getTotalTransacoes(userId, mesId, "Receita");
+
+			// Total
+
+			// Despesas
+			transacaoInfo.setQuantidadeDespesas(despesa.getQuantidade());
+			transacaoInfo.setValorDespesas(despesa.getValor());
+
+			// Receitas
+			transacaoInfo.setQuantidadeReceitas(receita.getQuantidade());
+			transacaoInfo.setValorReceitas(receita.getValor());
+
+
 			BigDecimal valor = new BigDecimal(0);
 			
 			for(int x = 0; x < dados.size(); x++) {
-				valor = valor.add(dados.get(x).getValor());
+				// Set Qauntidade total
+				if(dados.get(x).getTipo() != "Receita"){
+					valor = valor.add(dados.get(x).getValor());
+				}
 			}
-			return ResponseEntity.ok().body(new TransacaoUtil(valor, dados.size()));
+			return ResponseEntity.ok().body(transacaoInfo);
 		}
 	
 	// Buscar valor total e quantidade de transações por tipo
-	@GetMapping("/{userId}/{mesId}/{tipo}")
-	public ResponseEntity<TransacaoUtil> getTotalTransacoes(@PathVariable Long userId,
-			@PathVariable Long mesId,
-			@PathVariable String tipo){
-		List<Transacao> dados = transacaoRepository.getTotalTransacoes(userId, mesId, tipo);
-		BigDecimal valor = new BigDecimal(0);
-		
-		for(int x = 0; x < dados.size(); x++) {
-			valor = valor.add(dados.get(x).getValor());
-		}
-		return ResponseEntity.ok().body(new TransacaoUtil(valor, dados.size()));
-	}
+//	@GetMapping("/{userId}/{mesId}/{tipo}")
+//	public ResponseEntity<TransacaoUtil> getTotalTransacoes(@PathVariable Long userId,
+//			@PathVariable Long mesId,
+//			@PathVariable String tipo){
+//		List<Transacao> dados = transacaoRepository.getTotalTransacoes(userId, mesId, tipo);
+//		BigDecimal valor = new BigDecimal(0);
+//
+//		for(int x = 0; x < dados.size(); x++) {
+//			valor = valor.add(dados.get(x).getValor());
+//		}
+//		return ResponseEntity.ok().body(new TransacaoUtil(valor, dados.size()));
+//	}
 	
 	// Postar uma nova transacao
 	@PostMapping

@@ -19,14 +19,14 @@
             </select>
         </div>
 
-        <div class="form-group col-md-2">
+        <!-- <div class="form-group col-md-2">
             <label for="mes">Tipo</label>
             <select class="form-control" (change)="trTipo($event)" id="tipo" name="tipo" [(ngModel)]="tipoConsulta">
                 <option value="0" selected>Todos</option>
                 <option value="Despesa">Despesa</option>
                 <option value="Receita">Receita</option>
             </select>
-        </div>
+        </div> -->
 
         <div class="col-md-2 align-self-center">
             <button type="submit" class="btn btn-editar d-flex align-items-center justify-content-center" (click)="searchByMes()">
@@ -45,23 +45,28 @@
     <div class="row d-flex align-items-center mb-4">
         <div class="col-md-12 d-flex justify-content-around">
             <div class="card-dash">
-                <h2>{{totalReceita.valor | currency: 'BRL'}}</h2>
+                <!-- <h2>{{totalReceita.valor | currency: 'BRL'}}</h2> -->
+                <h2>XXXXX</h2>
                 <div>
                     <h5>Receitas</h5>
-                    <span>{{totalReceita.quantidade}}x</span>
+                    <!-- <span>{{totalReceita.quantidade}}x</span> -->
+                    <span>1x</span>
                 </div>
             </div>
 
             <div class="card-dash">
-                <h2>{{totalDespesa.valor | currency: 'BRL'}}</h2>
+                <!-- <h2>{{totalDespesa.valor | currency: 'BRL'}}</h2> -->
+                <h2>XXXXX</h2>
                 <div>
                     <h5>Despesas</h5>
-                    <span>{{totalDespesa.quantidade}}x</span>
+                    <!-- <span>{{totalDespesa.quantidade}}x</span> -->
+                    <span>1x</span>
                 </div>
             </div>
 
             <div class="card-dash">
-                <h2>{{totalReceita.valor - totalDespesa.valor | currency: 'BRL'}}</h2>
+                <!-- <h2>{{totalReceita.valor - totalDespesa.valor | currency: 'BRL'}}</h2> -->
+                <h2>XXXXX</h2>
                 <div>
                     <h5>Saldo</h5>
                     <!-- <span>{{totalReceita.quantidade + totalDespesa.quantidade}}x</span> -->
