@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SomaUtil {
 
-    private BigDecimal valorTotal;
+    private BigDecimal saldo;
 
     private BigDecimal valorDespesas;
 

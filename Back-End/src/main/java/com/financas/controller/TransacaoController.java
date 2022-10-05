@@ -66,8 +66,6 @@ public class TransacaoController {
 			TransacaoUtil despesa = customRepository.getTotalTransacoes(userId, mesId, "Despesa");
 			TransacaoUtil receita = customRepository.getTotalTransacoes(userId, mesId, "Receita");
 
-			// Total
-
 			// Despesas
 			transacaoInfo.setQuantidadeDespesas(despesa.getQuantidade());
 			transacaoInfo.setValorDespesas(despesa.getValor());
@@ -76,15 +74,10 @@ public class TransacaoController {
 			transacaoInfo.setQuantidadeReceitas(receita.getQuantidade());
 			transacaoInfo.setValorReceitas(receita.getValor());
 
+			// Total
+			transacaoInfo.setQuantidadeTotal(transacaoInfo.getQuantidadeDespesas() + transacaoInfo.getQuantidadeReceitas());
+			transacaoInfo.setSaldo(transacaoInfo.getValorReceitas().subtract(transacaoInfo.getValorDespesas()));
 
-			BigDecimal valor = new BigDecimal(0);
-			
-			for(int x = 0; x < dados.size(); x++) {
-				// Set Qauntidade total
-				if(dados.get(x).getTipo() != "Receita"){
-					valor = valor.add(dados.get(x).getValor());
-				}
-			}
 			return ResponseEntity.ok().body(transacaoInfo);
 		}
 	
