@@ -4,6 +4,7 @@ import { MesService } from 'src/app/service/mes.service';
 import { TransacaoService } from 'src/app/service/transacao.service';
 import { environment } from 'src/environments/environment.prod';
 import { Mes } from 'src/model/Mes';
+import { SomaUtil } from 'src/model/SomaUtil';
 import { Transacao } from 'src/model/Transacao';
 import { TransacaoUtil } from 'src/model/TransacaoUtil';
 
@@ -22,14 +23,11 @@ export class RelatoriosComponent implements OnInit {
 
   listaMeses: Mes[];
   transacoesMes: Transacao[];
-  totalTransacoes: TransacaoUtil;
-  // totalReceita: TransacaoUtil;
-  // totalDespesa: TransacaoUtil;
+  totalTransacoes: SomaUtil;
 
   userId = environment.id;
   mesDesc: string;
   mesConsulta: number;
-  tipoConsulta: string = "0";
 
   ngOnInit() {
     if (environment.token == "") {
@@ -41,9 +39,7 @@ export class RelatoriosComponent implements OnInit {
      this.mesConsulta = data.getMonth() + 1
      
      this.getAllMeses();
-     this.getTotalTransacoesMes(this.userId, this.mesConsulta)
-    //  this.getTotalTransacoes(this.userId, this.mesConsulta, "Despesa");
-    //  this.getTotalTransacoes(this.userId, this.mesConsulta, "Receita");
+     this.getTotalTransacoesMes(this.userId, this.mesConsulta); 
      this.getByMes(this.userId, this.mesConsulta);
   }
 
@@ -62,31 +58,10 @@ export class RelatoriosComponent implements OnInit {
   }
 
   getTotalTransacoesMes(userId: number, mesId: number){
-    this.transacaoService.getTotalMes(userId, mesId).subscribe((resp: TransacaoUtil) => {
+    this.transacaoService.getTotalTransacoes(userId, mesId).subscribe((resp: SomaUtil) => {
       this.totalTransacoes = resp;
-
-      this.somatransacoes(resp);
     })
   }
-
-  somatransacoes(transacoes: TransacaoUtil){
-    console.log(transacoes);
-      // Somar as informações do dash da tela relatórios
-  }
-
-  // getTotalTransacoes(userId: number, mesId: number){
-  //   this.transacaoService.getTotalTransacoes(userId, mesId).subscribe((resp: TransacaoUtil) => {
-  //     if(tipo == "Receita"){
-  //       this.totalReceita = resp
-  //     } else{
-  //       this.totalDespesa = resp
-  //     }
-  //   })
-  // }
-
-  // trTipo(event: any) {
-  //   this.tipoConsulta = event.target.value
-  // }
 
   trMesId(event: any) {
     this.mesConsulta = event.target.value

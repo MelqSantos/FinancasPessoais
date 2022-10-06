@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
+import { SomaUtil } from 'src/model/SomaUtil';
 import { Transacao } from 'src/model/Transacao';
 import { TransacaoUtil } from 'src/model/TransacaoUtil';
 
@@ -34,8 +35,8 @@ export class TransacaoService {
     return this.http.get<TransacaoUtil>(this.url + "/" + userId + "/" + mesId + "/", this.token)
   }
 
-  getTotalTransacoes(userId: number, mesId:number, tipo: string): Observable<TransacaoUtil>{
-    return this.http.get<TransacaoUtil>(this.url + "/" + userId + "/" + mesId + "/" + tipo, this.token)
+  getTotalTransacoes(userId: number, mesId:number): Observable<SomaUtil>{
+    return this.http.get<SomaUtil>(this.url + "/" + userId + "/" + mesId, this.token)
   }
 
   postTransacao(transacao: Transacao):Observable<Transacao>{

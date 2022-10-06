@@ -34,7 +34,7 @@ public class CustomRepositoryImpl implements CustomRepository{
                 " and t.tipo = '" + tipo + "'");
 
         var result = convertObjectToList(query.getSingleResult());
-        transacao.setValor(((BigDecimal) result.get(0)));
+        transacao.setValor(result.get(0) != null ? (BigDecimal) result.get(0) : new BigDecimal(0));
         transacao.setQuantidade(((BigInteger) result.get(1)).intValue());
 
      return transacao;
