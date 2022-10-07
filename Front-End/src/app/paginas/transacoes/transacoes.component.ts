@@ -5,7 +5,6 @@ import { MesService } from 'src/app/service/mes.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TransacaoService } from 'src/app/service/transacao.service';
 import { UserService } from 'src/app/service/user.service';
-import { ExcelClass } from 'src/app/shared/excel-class';
 import { environment } from 'src/environments/environment.prod';
 import { Categoria } from 'src/model/Categoria';
 import { Mes } from 'src/model/Mes';
@@ -44,19 +43,12 @@ export class TransacoesComponent implements OnInit {
   somaReceita: number = 0;
   ganhos: number = 0;
   
-  // Excel
-  fileName: string = '';
-  dadosExcel: any[] = [];
-  columns: any[];
-  footerData: any[][] = [];
-  total = 0;
 
   constructor(
     private userService: UserService,
     private categoriaService: CategoriaService,
     private transacaoService: TransacaoService,
     private mesService: MesService,
-    private excelClass: ExcelClass,
     // private alerta: AlertaService,
     private alerta: NotificationService,
     private router: Router
@@ -77,47 +69,7 @@ export class TransacoesComponent implements OnInit {
     this.getByIdUser()
     this.getAllCategorias()
     this.getAllMeses()
-    // this.getTransacaoMesUser()
 
-    // Excel
-    this.columns = ['Núm. da transação','Descrição','Tipo','Categoria','Mês', 'Valor']
-
-  }
-  
-   exportexcel(): void {
-    this.getByIdUser()
-
-    let meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho', 'Agosto','Setembro','Outubro','Novembro','Dezembro']
-
-    // Nome do arquivo a ser exportado
-    this.fileName= 'Relatório_' + meses[this.mesConsulta - 1] + '.xlsx';
- 
-      for(let dado of this.transacaoMesUser){
-
-        this.dadosExcel.push({
-          Id: dado.id,
-          Descrição: dado.descricao,
-          Tipo: dado.tipo,
-          Categoria: dado.categoria.descricao,
-          Mês: dado.mes.descricao,
-          Valor: dado.valor
-        })
-        
-        if(dado.tipo == 'Despesa'){
-          this.total += dado.valor
-        }
-      }
-
-    // Soma das transações
-    this.footerData.push(['Total de despesas', '', '', '', '', this.total]);
-    
-    // Criação do arquivo Excel
-    let mes = meses[this.mesConsulta - 1]
-    this.excelClass.exportAsExcelFile(`Relatório de gastos - ${mes}`, '',this.columns, this.dadosExcel, this.footerData, `Relatório ${mes}`, mes)
-
-    this.dadosExcel = []
-    this.footerData = []
-    this.total = 0
   }
 
   getAllMeses() {
@@ -133,13 +85,6 @@ export class TransacoesComponent implements OnInit {
       this.getTransacaoUser()
     })
   }
-
-  // getTransacaoMesUser(){
-  //   this.transacaoService.getByMes(this.idUSer, this.mesConsulta)
-  //     .subscribe((resp: Transacao[]) => {
-  //       this.transacaoMesUser2 = resp;
-  //   })
-  // }
 
   getTransacaoUser() {
     // Zera as variáveis ao chamar novamente a função
@@ -213,9 +158,7 @@ export class TransacoesComponent implements OnInit {
       this.getTransacaoUser()
     })
   }
-
-
-
+  
   // Verificação do tipo da transação escolhida
   tipoTr(event: any) {
     this.TipoTransacao = event.target.value

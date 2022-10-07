@@ -58,8 +58,6 @@ export class ExcelClass {
             worksheet.getCell('A2').font = { size: 12, bold: false };
         }
 
-        worksheet.addRow([]);
-
         /* Add Header Row */
         const headerRow = worksheet.addRow(header);
 

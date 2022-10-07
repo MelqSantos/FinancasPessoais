@@ -20,7 +20,7 @@
 
                 <h5 class="mb-0">
                     <mat-icon class="mr-1 align-middle">account_balance</mat-icon>
-                    <small>{{somaReceita - somaTransacao  | currency: 'BRL'}}</small>
+                    <small>{{somaReceita - somaTransacao | currency: 'BRL'}}</small>
                 </h5>
             </div>
 
@@ -28,18 +28,14 @@
 
                 <select (change)="getTransacaoUser()" class="form-control w-25" id="consulta" [(ngModel)]="mesConsulta">
                     <option *ngFor="let mes of listaMeses" value="{{mes.id}}">{{mes.descricao}}</option>
-                  </select>
+                </select>
 
                 <div class="acoes d-flex ml-auto">
-                    <button type="button" class="btn btn-editar d-flex align-items-center mr-2" data-toggle="modal" data-target="#exampleModal">
-                    <mat-icon>add</mat-icon>
-                    Adicionar
-                </button>
-
-                    <button (click)="exportexcel()" type="button" class="btn btn-excel d-flex align-items-center">
-                    <mat-icon>file_download</mat-icon>
-                    Excel
-                </button>
+                    <button type="button" class="btn btn-editar d-flex align-items-center mr-2" data-toggle="modal"
+                        data-target="#exampleModal">
+                        <mat-icon>add</mat-icon>
+                        Adicionar
+                    </button>
                 </div>
             </div>
         </div>
@@ -72,13 +68,16 @@
                     <td>{{item.categoria.descricao}}</td>
                     <td>{{item.data | date: 'shortDate'}} - <strong>{{item.data | date: 'mediumTime'}}</strong></td>
                     <td>
-                        <button class="btn btn-info" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalFour">
+                        <button class="btn btn-info" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)"
+                            data-toggle="modal" data-target="#modalFour">
                             <mat-icon>info</mat-icon>
                         </button>
-                        <button class="btn btn-editar mr-2" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalThree">
+                        <button class="btn btn-editar mr-2" value="{{item.id}}" #ref
+                            (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalThree">
                             <mat-icon>edit_note</mat-icon>
                         </button>
-                        <button class="btn btn-apagar" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)" data-toggle="modal" data-target="#modalTwo">
+                        <button class="btn btn-apagar" value="{{item.id}}" #ref (click)="getByIdTransacao(ref.value)"
+                            data-toggle="modal" data-target="#modalTwo">
                             <mat-icon>delete_forever</mat-icon>
                         </button>
                     </td>
@@ -99,7 +98,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
-                        <mat-icon class="mr-2">paid</mat-icon>Adicionar movimentação</h5>
+                        <mat-icon class="mr-2">paid</mat-icon>Adicionar movimentação
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -109,34 +109,40 @@
                     <form>
                         <div class="form-group">
                             <label for="desc" class="col-form-label">Descrição</label>
-                            <input type="text" class="form-control" id="desc" name="desc" [(ngModel)]="transacao.descricao">
+                            <input type="text" class="form-control" id="desc" name="desc"
+                                [(ngModel)]="transacao.descricao">
                         </div>
 
                         <div class="row d-flex align-items-center">
                             <div class="form-group col-md-6">
                                 <label for="valor" class="col-form-label">Valor</label>
-                                <input type="text" class="form-control" id="valor" name="valor" currencyMask [options]="{prefix: 'R$ ', thousands: '.', decimal:',', align:'left'}" [(ngModel)]="transacao.valor">
+                                <input type="text" class="form-control" id="valor" name="valor" currencyMask
+                                    [options]="{prefix: 'R$ ', thousands: '.', decimal:',', align:'left'}"
+                                    [(ngModel)]="transacao.valor">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="tipo">Tipo</label>
                                 <select (change)="tipoTr($event)" class="form-control" id="tipo" name="tipo">
-                              <option selected>Selecione</option>
-                              <option>Despesa</option>
-                              <option>Receita</option>
-                            </select>
+                                    <option selected>Selecione</option>
+                                    <option>Despesa</option>
+                                    <option>Receita</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="categoria">Categoria</label>
-                            <select (change)="getCategoriaById()" class="form-control" id="categoria" name="categoria" [(ngModel)]="idCategoria">
-                          <option *ngFor="let categoria of listaCategorias" value="{{categoria.id}}">{{categoria.descricao}}</option>
-                        </select>
+                            <select (change)="getCategoriaById()" class="form-control" id="categoria" name="categoria"
+                                [(ngModel)]="idCategoria">
+                                <option *ngFor="let categoria of listaCategorias" value="{{categoria.id}}">
+                                    {{categoria.descricao}}</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="mes">Mês</label>
-                            <select class="form-control" id="mes" name="mes" readonly="readonly" tabindex="-1" aria-disabled="true" [value]="mesConsulta">
+                            <select class="form-control" id="mes" name="mes" readonly="readonly" tabindex="-1"
+                                aria-disabled="true" [value]="mesConsulta">
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
                                 <option value="3">Março</option>
@@ -149,13 +155,14 @@
                                 <option value="10">Outubro</option>
                                 <option value="11">Novembro</option>
                                 <option value="12">Dezembro</option>
-                        </select>
+                            </select>
                         </div>
                     </form>
 
                 </div>
                 <div class="modal-footer">
-                    <button (click)="cadastrar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                    <button (click)="cadastrar()" type="button" class="btn btn-editar d-flex align-items-center"
+                        data-dismiss="modal">
                         <mat-icon>add</mat-icon>
                         Adicionar
                     </button>
@@ -174,10 +181,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
-                        <mat-icon class="mr-2">delete_forever</mat-icon>Apagar Transação</h5>
+                        <mat-icon class="mr-2">delete_forever</mat-icon>Apagar Transação
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p>Tem certeza que deseja deletar a movimentação abaixo?</p>
@@ -187,7 +195,8 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button (click)="apagar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                    <button (click)="apagar()" type="button" class="btn btn-editar d-flex align-items-center"
+                        data-dismiss="modal">
                         <mat-icon>delete_forever</mat-icon>
                         Deletar
                     </button>
@@ -206,43 +215,50 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
-                        <mat-icon class="mr-2">edit_notes</mat-icon>Editar transação</h5>
+                        <mat-icon class="mr-2">edit_notes</mat-icon>Editar transação
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
                             <label for="desc" class="col-form-label">Descrição</label>
-                            <input type="text" class="form-control" id="desc" name="desc" [(ngModel)]="transacaoUtil.descricao">
+                            <input type="text" class="form-control" id="desc" name="desc"
+                                [(ngModel)]="transacaoUtil.descricao">
                         </div>
 
                         <div class="row d-flex align-items-center">
                             <div class="form-group col-md-6">
                                 <label for="valor" class="col-form-label">Valor</label>
-                                <input type="text" class="form-control" id="valor" name="valor" currencyMask [options]="{prefix: 'R$ ', thousands: '.', decimal:',', align:'left'}" [(ngModel)]="transacaoUtil.valor">
+                                <input type="text" class="form-control" id="valor" name="valor" currencyMask
+                                    [options]="{prefix: 'R$ ', thousands: '.', decimal:',', align:'left'}"
+                                    [(ngModel)]="transacaoUtil.valor">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="tipo">Tipo</label>
                                 <select (change)="tipoTr($event)" class="form-control" id="tipo" name="tipo">
-                              <option selected>Selecione</option>
-                              <option>Despesa</option>
-                              <option>Receita</option>
-                            </select>
+                                    <option selected>Selecione</option>
+                                    <option>Despesa</option>
+                                    <option>Receita</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="categoria">Categoria</label>
-                            <select (change)="getCategoriaById()" class="form-control" id="categoria" name="categoria" [(ngModel)]="idCategoria">
-                          <option *ngFor="let categoria of listaCategorias" value="{{categoria.id}}">{{categoria.descricao}}</option>
-                        </select>
+                            <select (change)="getCategoriaById()" class="form-control" id="categoria" name="categoria"
+                                [(ngModel)]="idCategoria">
+                                <option *ngFor="let categoria of listaCategorias" value="{{categoria.id}}">
+                                    {{categoria.descricao}}</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="mes">Mês</label>
-                            <select class="form-control" id="mes" name="mes" readonly="readonly" tabindex="-1" aria-disabled="true" [value]="mesConsulta">
+                            <select class="form-control" id="mes" name="mes" readonly="readonly" tabindex="-1"
+                                aria-disabled="true" [value]="mesConsulta">
                                 <option value="1">Janeiro</option>
                                 <option value="2">Fevereiro</option>
                                 <option value="3">Março</option>
@@ -255,12 +271,13 @@
                                 <option value="10">Outubro</option>
                                 <option value="11">Novembro</option>
                                 <option value="12">Dezembro</option>
-                        </select>
+                            </select>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button (click)="editar()" type="button" class="btn btn-editar d-flex align-items-center" data-dismiss="modal">
+                    <button (click)="editar()" type="button" class="btn btn-editar d-flex align-items-center"
+                        data-dismiss="modal">
                         <mat-icon>sync</mat-icon>
                         Atualizar
                     </button>
@@ -279,10 +296,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title d-flex align-items-center" id="exampleModalLabel">
-                        <mat-icon class="mr-2">info</mat-icon>Informações da movimentação</h5>
+                        <mat-icon class="mr-2">info</mat-icon>Informações da movimentação
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="infoTransacao">

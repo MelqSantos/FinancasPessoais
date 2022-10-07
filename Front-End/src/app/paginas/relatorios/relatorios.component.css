@@ -56,3 +56,15 @@
     background-color: #4BB249;
     color: #ffffff;
 }
+
+@media (max-width: 768px) {
+    .bg{
+        min-height: 40vh;
+    }
+}
+
+@media (min-width: 769px) {
+    .bg{
+        min-height: 75vh;
+    }
+}
