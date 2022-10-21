@@ -39,17 +39,18 @@ export class TransacoesComponent implements OnInit {
   idMes: number;
   mesConsulta: number;
   somaTransacao: number = 0;
+  somaReceitaVr = 0;
+  somaDespesaVr = 0;
   gastos: number = 0;
   somaReceita: number = 0;
   ganhos: number = 0;
-  
+
 
   constructor(
     private userService: UserService,
     private categoriaService: CategoriaService,
     private transacaoService: TransacaoService,
     private mesService: MesService,
-    // private alerta: AlertaService,
     private alerta: NotificationService,
     private router: Router
   ) { }
@@ -91,6 +92,8 @@ export class TransacoesComponent implements OnInit {
     this.transacaoMesUser = []
     this.somaTransacao = 0
     this.somaReceita = 0
+    this.somaReceitaVr = 0
+    this.somaDespesaVr = 0
 
     // Busca as transações feitas pelo usuário no mês atual
     for (let transacao of this.user.transacao) {
@@ -98,11 +101,20 @@ export class TransacoesComponent implements OnInit {
       if (transacao.mes.id == this.mesConsulta) {
         this.transacaoMesUser.push(transacao)
 
-        if (transacao.tipo == "Despesa") {
+        // Transações comuns
+        if (transacao.tipo == "Despesa" && transacao.categoria.descricao != "Refeição") {
           this.somaTransacao += transacao.valor
         } else
-          if (transacao.tipo == "Receita") {
+          if (transacao.tipo == "Receita" && transacao.categoria.descricao != "Refeição") {
             this.somaReceita += transacao.valor
+          }
+
+        // Transações com Vale Refeição
+        if (transacao.tipo == "Despesa" && transacao.categoria.descricao == "Refeição") {
+          this.somaDespesaVr += transacao.valor
+        } else
+          if (transacao.tipo == "Receita" && transacao.categoria.descricao == "Refeição") {
+            this.somaReceitaVr += transacao.valor
           }
       }
       // Faz o cálculo de controle financeiro
@@ -158,7 +170,7 @@ export class TransacoesComponent implements OnInit {
       this.getTransacaoUser()
     })
   }
-  
+
   // Verificação do tipo da transação escolhida
   tipoTr(event: any) {
     this.TipoTransacao = event.target.value
