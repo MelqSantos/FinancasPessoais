@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment.prod';
 import { Mes } from 'src/model/Mes';
 import { SomaUtil } from 'src/model/SomaUtil';
 import { Transacao } from 'src/model/Transacao';
-import { TransacaoUtil } from 'src/model/TransacaoUtil';
 
 @Component({
   selector: 'app-relatorios',
@@ -39,6 +38,7 @@ export class RelatoriosComponent implements OnInit {
   despesas = 0;
   receitas = 0;
   saldo = 0;
+  perc = 0;
 
 
   ngOnInit() {
@@ -74,6 +74,8 @@ export class RelatoriosComponent implements OnInit {
   getTotalTransacoesMes(userId: number, mesId: number){
     this.transacaoService.getTotalTransacoes(userId, mesId).subscribe((resp: SomaUtil) => {
       this.totalTransacoes = resp;
+
+      this.perc = (this.totalTransacoes.valorDespesas * 100) / this.totalTransacoes.valorReceitas;
     })
   }
 
