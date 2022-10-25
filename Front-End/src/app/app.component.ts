@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment.prod';
 import { UserService } from './service/user.service';
 import { Usuario } from 'src/model/Usuario';
 import { NotificationService } from './service/notification.service';
+import { LoaderService } from './paginas/components/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent {
 constructor(
   public userService: UserService,
   public router: Router,
-  public alerta: NotificationService
+  public alerta: NotificationService,
+  public loaderService: LoaderService
 ){}
 
 ngOnInit(){

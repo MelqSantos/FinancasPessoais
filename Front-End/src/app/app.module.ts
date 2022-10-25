@@ -3,10 +3,10 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { OrderModule } from 'ngx-order-pipe';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -15,6 +15,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { GaugeChartModule } from 'angular-gauge-chart';
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 registerLocaleData(ptBr);
 
 // Comonentes
@@ -30,6 +31,7 @@ import { GraficoComponent } from './shared/grafico/grafico.component';
 import { TransacoesComponent } from './paginas/transacoes/transacoes.component';
 import { GaugeChartComponent } from './shared/gauge-chart/gauge-chart.component';
 import { RelatoriosComponent } from './paginas/relatorios/relatorios.component';
+import { InterceptorService } from './paginas/components/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -58,12 +60,14 @@ import { RelatoriosComponent } from './paginas/relatorios/relatorios.component';
     GaugeModule,
     NgChartsModule,
     GaugeChartModule,
+    MatProgressBarModule,
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
     GaugeModule.forRoot()
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt'}
+    {provide: LOCALE_ID, useValue: 'pt'},
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })

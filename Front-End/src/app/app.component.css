@@ -124,6 +124,13 @@
     background-color: rgba(197, 197, 197, 1) !important;
 }
 
+.loader-container{
+    position: fixed;
+    width: 100%;
+    height: 15px;
+    z-index: 99;
+}
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES
