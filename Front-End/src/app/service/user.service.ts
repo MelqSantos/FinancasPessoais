@@ -16,7 +16,7 @@ export class UserService {
     public router: Router
     ) { }
 
-    url = 'http://localhost:8080/usuario';
+    url = 'https://financaspessoais-api.up.railway.app/usuario';
 
     token = {
       headers: new HttpHeaders().set('Authorization', environment.token)

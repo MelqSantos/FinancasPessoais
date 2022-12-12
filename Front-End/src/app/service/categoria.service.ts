@@ -13,7 +13,7 @@ export class CategoriaService {
     private http: HttpClient
   ) { }
 
-  url = 'http://localhost:8080/categoria';
+  url = 'https://financaspessoais-api.up.railway.app/categoria';
 
   token = {
     headers: new HttpHeaders().set('Authorization', environment.token)

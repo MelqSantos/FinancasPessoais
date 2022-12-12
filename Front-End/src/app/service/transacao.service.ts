@@ -13,7 +13,7 @@ export class TransacaoService {
 
   constructor(private http: HttpClient) { }
 
-  url = 'http://localhost:8080/transacao';
+  url = 'https://financaspessoais-api.up.railway.app/transacao';
 
   token = {
     headers: new HttpHeaders().set('Authorization', environment.token)
