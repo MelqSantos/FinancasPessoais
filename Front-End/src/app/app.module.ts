@@ -66,7 +66,7 @@ import { InterceptorService } from './paginas/components/interceptor.service';
     GaugeModule.forRoot()
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'pt'},
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
