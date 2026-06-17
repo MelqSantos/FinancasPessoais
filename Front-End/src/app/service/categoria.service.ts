@@ -13,7 +13,7 @@ export class CategoriaService {
     private http: HttpClient
   ) { }
 
-  url = 'https://financaspessoais-api.up.railway.app/categoria';
+  url = 'https://financaspessoais-back.onrender.com/categoria';
 
   token = {
     headers: new HttpHeaders().set('Authorization', environment.token)

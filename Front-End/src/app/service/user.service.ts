@@ -16,7 +16,7 @@ export class UserService {
     public router: Router
     ) { }
 
-    url = 'https://financaspessoais-api.up.railway.app/usuario';
+    url = 'https://financaspessoais-back.onrender.com/usuario';
 
     token = {
       headers: new HttpHeaders().set('Authorization', environment.token)
