@@ -26,11 +26,7 @@ export class LoginComponent implements OnInit {
   logar(){
     this.userService.logar(this.userLogin).subscribe((resp: UsuarioLogin) =>{
       this.userLogin = resp;
-
-      environment.id = this.userLogin.id
-      environment.nome = this.userLogin.nome
-      environment.email = this.userLogin.email
-      environment.token = this.userLogin.token
+      this.userService.setSession(this.userLogin)
 
       this.router.navigate(['/transacoes'])
     }, erro =>{

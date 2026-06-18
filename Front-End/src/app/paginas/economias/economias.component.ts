@@ -44,7 +44,6 @@ export class EconomiasComponent implements OnInit {
       this.router.navigate(['/']);
     }
 
-    this.userService.refreshToken()
     this.getMesAtual()
     this.findByIdUser()
   }

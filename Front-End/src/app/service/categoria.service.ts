@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -15,28 +15,24 @@ export class CategoriaService {
 
   url = 'https://financaspessoais-back.onrender.com/categoria';
 
-  token = {
-    headers: new HttpHeaders().set('Authorization', environment.token)
-  }
-
   getAllCategorias(): Observable<Categoria[]>{
-    return this.http.get<Categoria[]>(this.url, this.token)
+    return this.http.get<Categoria[]>(this.url)
   }
 
   getByIdCategoria(id: number): Observable<Categoria>{
-    return this.http.get<Categoria>(this.url + "/" + id, this.token)
+    return this.http.get<Categoria>(this.url + "/" + id)
   }
 
   postCategoria(categoria: Categoria): Observable<Categoria>{
-    return this.http.post<Categoria>(this.url, categoria, this.token)
+    return this.http.post<Categoria>(this.url, categoria)
   }
 
   putCategoria(categoria: Categoria): Observable<Categoria>{
-    return this.http.put<Categoria>(this.url, categoria, this.token)
+    return this.http.put<Categoria>(this.url, categoria)
   }
 
   deleteCategoria(id: number){
-    return this.http.delete(this.url + "/" + id, this.token)
+    return this.http.delete(this.url + "/" + id)
   }
 
 }

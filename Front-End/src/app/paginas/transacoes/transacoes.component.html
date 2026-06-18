@@ -8,39 +8,61 @@
                 <h1 class="h1-title m-0">Transações</h1>
             </div>
 
-            <div class="d-flex align-items-center py-2">
-                <h5 class="mb-0 mr-3">
-                    <mat-icon class="mr-1 text-success align-middle">north</mat-icon>
+            <div class="resumo-badges py-3">
+                <h5 class="badge-finance badge-receita mb-0">
+                    <span class="badge-label d-flex align-items-center">
+                        <mat-icon class="mr-1 align-middle">north</mat-icon>
+                        Receita
+                    </span>
                     <small>{{somaReceita | currency: 'BRL'}}</small>
                 </h5>
 
-                <h5 class="mb-0 mr-3">
-                    <mat-icon class="mr-1 text-danger align-middle">south</mat-icon>
+                <h5 class="badge-finance badge-despesa mb-0">
+                    <span class="badge-label d-flex align-items-center">
+                        <mat-icon class="mr-1 align-middle">south</mat-icon>
+                        Despesa
+                    </span>
                     <small>{{somaTransacao | currency: 'BRL'}}</small>
                 </h5>
 
-                <h5 class="mb-0">
-                    <mat-icon class="mr-1 text-secondary align-middle">wallet</mat-icon>
+                <h5 class="badge-finance badge-saldo mb-0">
+                    <span class="badge-label d-flex align-items-center">
+                        <mat-icon class="mr-1 align-middle">wallet</mat-icon>
+                        Saldo
+                    </span>
                     <small>{{somaReceita - somaTransacao | currency: 'BRL'}}</small>
                 </h5>
 
-                <h5 class="mb-0 ml-auto mr-3">
-                    <mat-icon class="mr-3 text-secondary align-middle">restaurant</mat-icon>
+                <h5 class="badge-finance badge-vr mb-0">
+                    <span class="badge-label d-flex align-items-center">
+                        <mat-icon class="mr-1 align-middle">restaurant</mat-icon>
+                        Vale refeição
+                    </span>
                     <small>{{somaReceitaVr - somaDespesaVr | currency: 'BRL'}}</small>
                 </h5>
             </div>
 
-            <div class="botoes d-flex my-2">
+            <div class="painel-filtros my-3">
+                <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+                    <div>
+                        <h5 class="mb-1">Filtre as transações por mês</h5>
+                        <small class="text-muted">Os indicadores e a tabela mudam conforme o mês selecionado.</small>
+                    </div>
 
-                <select (change)="getTransacaoUser()" class="form-control w-25" id="consulta" [(ngModel)]="mesConsulta">
-                    <option *ngFor="let mes of listaMeses" value="{{mes.id}}">{{mes.descricao}}</option>
-                </select>
+                    <div class="acoes d-flex mt-3 mt-md-0">
+                        <button type="button" class="btn btn-editar d-flex align-items-center mr-2" data-toggle="modal"
+                            data-target="#exampleModal">
+                            <mat-icon>add</mat-icon>
+                            Adicionar
+                        </button>
+                    </div>
+                </div>
 
-                <div class="acoes d-flex ml-auto">
-                    <button type="button" class="btn btn-editar d-flex align-items-center mr-2" data-toggle="modal"
-                        data-target="#exampleModal">
-                        <mat-icon>add</mat-icon>
-                        Adicionar
+                <div class="mes-selector" role="tablist" aria-label="Seleção de mês">
+                    <button *ngFor="let mes of listaMeses" type="button" class="mes-chip"
+                        [class.active]="mes.id === mesConsulta" [attr.aria-pressed]="mes.id === mesConsulta"
+                        (click)="selecionarMes(mes.id)">
+                        {{mes.descricao}}
                     </button>
                 </div>
             </div>

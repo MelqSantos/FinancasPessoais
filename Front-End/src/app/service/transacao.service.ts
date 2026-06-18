@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -15,40 +15,36 @@ export class TransacaoService {
 
   url = 'https://financaspessoais-back.onrender.com/transacao';
 
-  token = {
-    headers: new HttpHeaders().set('Authorization', environment.token)
-  }
-
   getAll(): Observable<Transacao[]>{
-    return this.http.get<Transacao[]>(this.url, this.token)
+    return this.http.get<Transacao[]>(this.url)
   }
 
   getById(id: number):Observable<Transacao>{
-    return this.http.get<Transacao>(this.url + "/" + id, this.token)
+    return this.http.get<Transacao>(this.url + "/" + id)
   }
 
   getByMes(userId: number, mesId: number): Observable<Transacao[]>{
-    return this.http.get<Transacao[]>(this.url + "/mes/" + userId + "/" + mesId, this.token);
+    return this.http.get<Transacao[]>(this.url + "/mes/" + userId + "/" + mesId);
   }
 
   getTotalMes(userId: number, mesId:number): Observable<TransacaoUtil>{
-    return this.http.get<TransacaoUtil>(this.url + "/" + userId + "/" + mesId + "/", this.token)
+    return this.http.get<TransacaoUtil>(this.url + "/" + userId + "/" + mesId + "/")
   }
 
   getTotalTransacoes(userId: number, mesId:number): Observable<SomaUtil>{
-    return this.http.get<SomaUtil>(this.url + "/" + userId + "/" + mesId, this.token)
+    return this.http.get<SomaUtil>(this.url + "/" + userId + "/" + mesId)
   }
 
   postTransacao(transacao: Transacao):Observable<Transacao>{
-    return this.http.post<Transacao>(this.url, transacao, this.token)
+    return this.http.post<Transacao>(this.url, transacao)
   }
 
   editTransacao(transacao: Transacao): Observable<Transacao>{
-    return this.http.put<Transacao>(this.url, transacao, this.token)
+    return this.http.put<Transacao>(this.url, transacao)
   }
 
   deleteTransacao(id: number){
-    return this.http.delete(this.url + "/" + id, this.token)
+    return this.http.delete(this.url + "/" + id)
   }
 
 }
