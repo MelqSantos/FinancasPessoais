@@ -66,7 +66,6 @@ export class TransacoesComponent implements OnInit {
     var data: Date = new Date()
     this.mesConsulta = data.getMonth() + 1
 
-    this.userService.refreshToken()
     this.getByIdUser()
     this.getAllCategorias()
     this.getAllMeses()
@@ -77,6 +76,11 @@ export class TransacoesComponent implements OnInit {
     this.mesService.getAll().subscribe((resp: Mes[]) => {
       this.listaMeses = resp
     })
+  }
+
+  selecionarMes(mesId: number) {
+    this.mesConsulta = Number(mesId)
+    this.getTransacaoUser()
   }
 
   getByIdUser() {

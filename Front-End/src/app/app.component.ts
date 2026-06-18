@@ -24,6 +24,7 @@ constructor(
 
 ngOnInit(){
   window.scroll(0, 0);
+  this.userService.restoreSession();
 }
 
 // Togle menu lateral
@@ -36,10 +37,7 @@ toggle(){
 sair(){
   this.router.navigate(['/login'])
   this.alerta.showInfo('Usuário deslogado!', 'Sucesso')
-  environment.id = 0;
-  environment.nome = '';
-  environment.email = '';
-  environment.token = '';
+  this.userService.clearSession();
 }
 
 }

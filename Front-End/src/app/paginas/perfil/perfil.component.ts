@@ -36,7 +36,6 @@ export class PerfilComponent implements OnInit {
   }
 
   getByIdUser(){
-    this.userService.refreshToken()
     
     this.userService.getByIdUser(environment.id).subscribe((resp: Usuario) => {
       this.user = resp
@@ -50,10 +49,7 @@ export class PerfilComponent implements OnInit {
       
       this.alerta.showInfo('Usuário alterado com sucesso, faça login novamente!', 'Sucesso')
       this.router.navigate(['/login'])
-      environment.id = 0;
-      environment.nome = '';
-      environment.email = '';
-      environment.token = '';
+      this.userService.clearSession();
     },
     error => {
       this.alerta.showWarning('Entre em contato com o administrador!', `Erro HTTP: ${error.status}`)

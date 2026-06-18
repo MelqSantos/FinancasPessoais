@@ -2,6 +2,115 @@ p {
     color: var(--cinza);
 }
 
+.resumo-badges {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
+    gap: .65rem;
+}
+
+.badge-finance {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 84px;
+    margin: 0;
+    padding: .75rem .9rem;
+    border-radius: .9rem;
+    border: 1px solid transparent;
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(52, 58, 64, .16);
+}
+
+.badge-finance .badge-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    opacity: .92;
+}
+
+.badge-finance small {
+    display: block;
+    margin-top: .3rem;
+    font-size: .92rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.badge-finance mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.badge-receita {
+    background: linear-gradient(to right, #278856, #39a36d);
+}
+
+.badge-despesa {
+    background: linear-gradient(to right, var(--vermelho), #c53f3f);
+}
+
+.badge-saldo {
+    background: linear-gradient(to right, var(--preto), #585d63);
+}
+
+.badge-vr {
+    background: linear-gradient(to right, #6a737d, #8b949d);
+}
+
+.eyebrow {
+    font-size: .75rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #6c757d;
+}
+
+.painel-filtros {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+    box-shadow: 0 10px 30px rgba(16, 24, 40, .06);
+}
+
+.mes-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.mes-chip {
+    border: 1px solid #d7dde5;
+    background: #f8fafc;
+    color: #4f5b66;
+    border-radius: 999px;
+    padding: .55rem .95rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: all .2s ease;
+}
+
+.mes-chip:hover {
+    background: #eef2f7;
+    border-color: #b9c3cf;
+    transform: translateY(-1px);
+}
+
+.mes-chip.active {
+    background: linear-gradient(135deg, #1f7a4d, #29a36a);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(41, 163, 106, .22);
+}
+
+.mes-chip:focus-visible {
+    outline: 3px solid rgba(41, 163, 106, .25);
+    outline-offset: 2px;
+}
+
 td,
 th {
     text-align: center;
@@ -44,15 +153,39 @@ select[readonly] {
 }
 
 @media(max-width: 768px) {
-    .botoes {
-        flex-direction: column;
-        align-items: center;
+    .resumo-badges {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+        gap: .55rem;
     }
-    .botoes .acoes {
-        margin: .8rem 0 !important;
+
+    .badge-finance {
+        min-height: 76px;
+        padding: .65rem .75rem;
     }
-    .botoes select {
-        width: 90% !important;
+
+    .badge-finance small {
+        font-size: .86rem;
+    }
+
+    .painel-filtros {
+        padding: .95rem;
+    }
+
+    .mes-selector {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: .25rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .mes-chip {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .painel-filtros .acoes {
+        width: 100%;
+        justify-content: flex-start;
     }
     /* Table */
     thead tr th:first-child,
