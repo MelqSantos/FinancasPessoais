@@ -2,108 +2,124 @@
     min-height: 80vh;
 }
 
-.card {
-    width: 22%;
-    height: 190px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, .15);
+.dashboard-header {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
 }
 
-.card h5 {
-    font-size: 1rem;
+.page-head h3 {
+    font-weight: 700;
+}
+
+.painel-filtros-dashboard {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+    box-shadow: 0 10px 30px rgba(16, 24, 40, .06);
+}
+
+.mes-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.mes-chip {
+    border: 1px solid #d7dde5;
+    background: #f8fafc;
+    color: #4f5b66;
+    border-radius: 999px;
+    padding: .55rem .95rem;
     font-weight: 600;
+    line-height: 1;
+    transition: all .2s ease;
 }
 
-.card p {
-    color: var(--cinza);
-    font-style: italic;
-    font-size: 14px;
+.mes-chip:hover {
+    background: #eef2f7;
+    border-color: #b9c3cf;
+    transform: translateY(-1px);
 }
 
-.icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
-}
-
-.icon mat-icon {
-    font-size: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.mes-chip.active {
+    background: linear-gradient(135deg, #1f7a4d, #29a36a);
+    border-color: transparent;
     color: #fff;
-    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, .5));
+    box-shadow: 0 10px 20px rgba(41, 163, 106, .22);
 }
 
-.dados .card:nth-child(1) .icon {
-    background-color: #FF725E;
+.mes-chip:focus-visible {
+    outline: 3px solid rgba(41, 163, 106, .25);
+    outline-offset: 2px;
 }
 
-.dados .card:nth-child(2) .icon {
-    background-color: #49B29F;
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 }
 
-.dados .card:nth-child(3) .icon {
-    background-color: #DDE037;
+.card {
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(13, 38, 59, 0.06);
+    overflow: hidden;
 }
 
-.dados .card:nth-child(4) .icon {
-    background-color: #4BB249;
+.card-body {
+    display: flex;
+    align-items: center;
+    padding: 18px;
 }
 
+.card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-right: 14px;
+}
+
+.card-content { flex: 1; }
+.card-title { font-weight: 600; color: #586374; }
+.card-value { font-size: 1.25rem; font-weight: 700; margin-top:6px }
+.card-sub { color: #8a98a8; font-size: 0.85rem }
+
+.bg-danger { background: linear-gradient(135deg,#FF725E,#E8260B); }
+.bg-success { background: linear-gradient(135deg,#49B29F,#2C9D88); }
+.bg-warning { background: linear-gradient(135deg,#F7D154,#DDAE2A); }
+.bg-info { background: linear-gradient(135deg,#4BB4E6,#2E9CCA); }
+
+/* skeleton */
+.skeleton { height: 80px; border-radius: 8px; background: linear-gradient(90deg,#f0f0f0 25%, #ededed 37%, #f0f0f0 63%); background-size: 400% 100%; animation: shine 1.2s linear infinite; }
+@keyframes shine { to { background-position: 100% 0; } }
 
 /* ---------- Balanco ---------- */
 
-.balanco {
-    width: 100% !important;
-    height: 250px;
-    border-radius: 10px;
-    background: linear-gradient(to right, #FF725E, #E8260B);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.icon-wrapper mat-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.icon-wrapper {
-    padding: 3px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 2px 2px rgba(0, 0, 0, .15);
-}
+.card-control { background: linear-gradient(180deg,#ffffff,#fbfdff); border-radius:12px; box-shadow:0 10px 24px rgba(13,38,59,0.06); padding:12px; display:flex; flex-direction:column; align-items:center }
+.controle-header { width:100%; padding:8px 6px 12px 6px; border-bottom:1px solid #f0f4f8; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center }
+.controle-header small { display:block }
+.controle-body { width:100%; display:flex; gap:12px; align-items:center; justify-content:center; padding-top:10px }
+.gauge-wrapper { flex:0 0 140px; display:flex; align-items:center; justify-content:center }
+.controle-metrics { flex:1; display:flex; flex-direction:column; gap:10px }
+.metric { display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:#fff; border-radius:8px; box-shadow:0 6px 18px rgba(13,38,59,0.03) }
+.metric .label { color:#6b7785; font-weight:600 }
+.metric .value { font-weight:700 }
 
 
 /* ---------- Gráfico ---------- */
 
-.dash {
-    width: 100%;
-    height: calc(80vh - 180px);
-    margin-top: 15px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, .15);
-}
-
 .controle {
     width: 100%;
-    height: calc(80vh - 240px);
-    margin-top: 15px;
+    min-height: 200px;
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, .15);
+    box-shadow: 0 6px 18px rgba(13,38,59,0.06);
 }
 
 .controle h5 {
@@ -111,23 +127,17 @@
 }
 
 @media(max-width: 768px) {
-    .col-md-4 {
-        padding: 0 !important;
+    .cards-grid { grid-template-columns: repeat(2,1fr); }
+    .painel-filtros-dashboard { padding: .95rem; }
+    .mes-selector {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: .25rem;
+        -webkit-overflow-scrolling: touch;
     }
-    .dash {
-        display: none !important;
-    }
-    .dados {
-        display: grid;
-        grid-template-columns: auto auto;
-        column-gap: 5px;
-        row-gap: 5px;
-    }
-    .card {
-        width: 49%;
-    }
-    .balanco {
-        margin: 15px 0 15px 0;
+    .mes-chip {
+        flex: 0 0 auto;
+        white-space: nowrap;
     }
     /* Gauge chart */
     .controle {
@@ -135,3 +145,7 @@
         margin-bottom: 10px;
     }
 }
+
+/* Center control on large screens */
+.control-center { display:flex; justify-content:center }
+.control-center .card-control { max-width:720px; width:100% }
