@@ -24,7 +24,7 @@ constructor(
 
 ngOnInit(){
   window.scroll(0, 0);
-  this.userService.restoreSession();
+  this.userService.refreshToken();
 }
 
 // Togle menu lateral

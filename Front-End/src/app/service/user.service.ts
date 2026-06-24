@@ -35,30 +35,30 @@ export class UserService {
     environment.email = usuarioLogin.email
     environment.token = usuarioLogin.token
 
-    localStorage.setItem(this.storageKeys.id, String(usuarioLogin.id))
-    localStorage.setItem(this.storageKeys.nome, usuarioLogin.nome)
-    localStorage.setItem(this.storageKeys.email, usuarioLogin.email)
-    localStorage.setItem(this.storageKeys.token, usuarioLogin.token)
+    sessionStorage.setItem(this.storageKeys.id, String(usuarioLogin.id))
+    sessionStorage.setItem(this.storageKeys.nome, usuarioLogin.nome)
+    sessionStorage.setItem(this.storageKeys.email, usuarioLogin.email)
+    sessionStorage.setItem(this.storageKeys.token, usuarioLogin.token)
   }
 
   restoreSession() {
-    const token = localStorage.getItem(this.storageKeys.token)
+    const token = sessionStorage.getItem(this.storageKeys.token)
 
     if (!token) {
       return
     }
 
-    environment.id = Number(localStorage.getItem(this.storageKeys.id) || 0)
-    environment.nome = localStorage.getItem(this.storageKeys.nome) || ''
-    environment.email = localStorage.getItem(this.storageKeys.email) || ''
+    environment.id = Number(sessionStorage.getItem(this.storageKeys.id) || 0)
+    environment.nome = sessionStorage.getItem(this.storageKeys.nome) || ''
+    environment.email = sessionStorage.getItem(this.storageKeys.email) || ''
     environment.token = token
   }
 
   clearSession() {
-    localStorage.removeItem(this.storageKeys.id)
-    localStorage.removeItem(this.storageKeys.nome)
-    localStorage.removeItem(this.storageKeys.email)
-    localStorage.removeItem(this.storageKeys.token)
+    sessionStorage.removeItem(this.storageKeys.id)
+    sessionStorage.removeItem(this.storageKeys.nome)
+    sessionStorage.removeItem(this.storageKeys.email)
+    sessionStorage.removeItem(this.storageKeys.token)
 
     environment.id = 0
     environment.nome = ''
@@ -88,7 +88,7 @@ export class UserService {
 
   // Verifica se o usuário está logado através do Token armazenado no environment.
   logado(){
-    return environment.token != '' || !!localStorage.getItem(this.storageKeys.token)
+    return environment.token !== '' || !!sessionStorage.getItem(this.storageKeys.token)
   }
 
 }

@@ -121,15 +121,15 @@ export class TransacoesComponent implements OnInit {
             this.somaReceitaVr += transacao.valor
           }
       }
-      // Faz o cálculo de controle financeiro
-      let perc = 100 - ((100 * this.somaTransacao) / this.somaReceita)
-      if (perc < 0) {
-        perc = 0;
-      }
-
-      let valor = perc.toFixed(2) // Arredonda o valor para 2 casas decimais
-      sessionStorage.setItem('percentual', valor.toString())
     }
+
+    let perc = 0;
+    if (this.somaReceita > 0) {
+      perc = 100 - ((100 * this.somaTransacao) / this.somaReceita);
+    }
+    perc = perc < 0 ? 0 : perc;
+
+    sessionStorage.setItem('percentual', perc.toFixed(2));
 
     // Ordena as transações
     this.transacaoMesUser.sort((a, b) => (a.id < b.id) ? 1 : -1)

@@ -1,95 +1,117 @@
 <div class="content-20">
-    <div class="row">
-
-        <div class="col-md-8">
-            <div class="row dados d-flex justify-content-between">
-                <div class="card">
-                    <div class="icon">
-                        <mat-icon>moving</mat-icon>
-                    </div>
-                    <h5 class="mb-0 mt-2 px-2">Total de gastos</h5>
-                    <p class="mb-0"> + {{mesAtual.descricao}}</p>
-                    <h5 class="mt-1">{{somaDespesa | currency: 'BRL'}}</h5>
-                </div>
-                <div class="card">
-                    <div class="icon">
-                        <mat-icon>paid</mat-icon>
-                    </div>
-                    <h5 class="mb-0 mt-2 px-2">Receita</h5>
-                    <p class="mb-0"> + {{mesAtual.descricao}}</p>
-                    <h5 class="mt-1">{{somaReceita | currency: 'BRL'}}</h5>
-                </div>
-                <div class="card">
-                    <div class="icon">
-                        <mat-icon>calculate</mat-icon>
-                    </div>
-                    <h5 class="mb-0 mt-2 px-2">Total anual</h5>
-                    <p class="mb-0"> + Gastos 2022</p>
-                    <h5 class="mt-1">{{somaAnualDespesas | currency: 'BRL'}}</h5>
-                </div>
-                <div class="card">
-                    <div class="icon">
-                        <mat-icon>savings</mat-icon>
-                    </div>
-                    <h5 class="mb-0 mt-2 px-2">Economias</h5>
-                    <p class="mb-0"> + 2022</p>
-                    <h5 class="mt-1">{{somaEconomia | currency: 'BRL'}}</h5>
-                </div>
-            </div>
-
-            <!-- Gráfico -->
-            <div class="row">
-                <div class="dash">
-                    <app-grafico class="d-flex justify-content-center pt-2"></app-grafico>
-                </div>
-            </div>
-        </div>
-
-        <!-- Balanço -->
-        <div class="col-md-4 sticky-top">
-
-            <div class="balanco">
-                <div class="valor text-white pl-4">
-                    <h2 class="mb-0">{{balanco | currency: 'BRL'}}</h2>
-                    <p>Balanço atual</p>
-                </div>
-
-                <div class="status px-4 text-white d-flex justify-content-between">
-                    <div class="tipo d-flex align-items-center">
-                        <div class="icon-wrapper mr-2">
-                            <mat-icon class="text-success">north</mat-icon>
-                        </div>
-                        <p class="mb-0">Receita</p>
-                    </div>
-                    <p class="mb-0">{{somaReceita | currency: 'BRL'}}</p>
-                </div>
-
-                <div class="status px-4 mt-2 text-white d-flex justify-content-between">
-                    <div class="tipo d-flex align-items-center">
-                        <div class="icon-wrapper mr-2">
-                            <mat-icon class="text-danger">south</mat-icon>
-                        </div>
-                        <p class="mb-0">Despesa</p>
-                    </div>
-                    <p class="mb-0">{{somaDespesa | currency: 'BRL'}}</p>
-                </div>
-
-                <div class="status px-4 mt-2 text-white d-flex justify-content-between">
-                    <div class="tipo d-flex align-items-center">
-                        <div class="icon-wrapper mr-2">
-                            <mat-icon class="text-dark">account_balance</mat-icon>
-                        </div>
-                        <p class="mb-0">Balanço</p>
-                    </div>
-                    <p class="mb-0">{{balanco | currency: 'BRL'}}</p>
-                </div>
-            </div>
-
-            <div class="controle d-flex flex-column align-items-center justify-content-center">
-                <app-gauge-chart></app-gauge-chart>
-            </div>
-        </div>
+  <div class="dashboard-header mb-3">
+    <div class="page-head text-center mb-3">
+      <h3 class="mb-1">Visão Geral</h3>
+      <h5 class="text-muted">{{mesAtual?.descricao}}</h5>
     </div>
 
+    <div class="painel-filtros painel-filtros-dashboard">
+      <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+        <div>
+          <h5 class="mb-1">Filtre por mês</h5>
+          <small class="text-muted">Use os atalhos abaixo para trocar o período sem abrir um seletor.</small>
+        </div>
+      </div>
 
+      <div class="mes-selector" role="tablist" aria-label="Seleção de mês">
+        <button *ngFor="let mes of listaMeses" type="button" class="mes-chip"
+          [class.active]="mes.id === idMes" [attr.aria-pressed]="mes.id === idMes"
+          (click)="idMes = mes.id; getMesByIdTeste()">
+          {{mes.descricao}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="cards-grid">
+        <ng-container *ngIf="!loadingMes; else cardSkeleton">
+          <div class="card card-primary">
+            <div class="card-body">
+              <div class="card-icon bg-danger"><mat-icon>moving</mat-icon></div>
+              <div class="card-content">
+                <div class="card-title">Total de gastos</div>
+                <div class="card-value">{{somaDespesa | currency: 'BRL'}}</div>
+                <div class="card-sub">{{mesAtual?.descricao}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-primary">
+            <div class="card-body">
+              <div class="card-icon bg-success"><mat-icon>paid</mat-icon></div>
+              <div class="card-content">
+                <div class="card-title">Receita</div>
+                <div class="card-value">{{somaReceita | currency: 'BRL'}}</div>
+                <div class="card-sub">{{mesAtual?.descricao}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-primary">
+            <div class="card-body">
+              <div class="card-icon bg-warning"><mat-icon>calculate</mat-icon></div>
+              <div class="card-content">
+                <div class="card-title">Total anual</div>
+                <div class="card-value">{{somaAnualDespesas | currency: 'BRL'}}</div>
+                <div class="card-sub">Gasto anual</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-primary">
+            <div class="card-body">
+              <div class="card-icon bg-info"><mat-icon>savings</mat-icon></div>
+              <div class="card-content">
+                <div class="card-title">Economias</div>
+                <div class="card-value">{{somaEconomia | currency: 'BRL'}}</div>
+                <div class="card-sub">Investimentos</div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #cardSkeleton>
+          <div class="skeleton" *ngFor="let i of [1,2,3,4]"></div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 d-flex justify-content-center">
+      <div class="controle card-control control-center">
+        <div class="controle-header text-center">
+          <h5 class="mb-0">Controle Financeiro</h5>
+          <small class="text-muted">Visão rápida</small>
+        </div>
+
+        <div class="controle-body">
+          <div class="gauge-wrapper">
+            <app-gauge-chart [percentage]="percentual"></app-gauge-chart>
+          </div>
+
+          <div class="controle-metrics">
+            <div class="metric">
+              <div class="label">Receita</div>
+              <div class="value text-success">{{somaReceita | currency: 'BRL'}}</div>
+            </div>
+            <div class="metric">
+              <div class="label">Despesa</div>
+              <div class="value text-danger">{{somaDespesa | currency: 'BRL'}}</div>
+            </div>
+            <div class="metric">
+              <div class="label">Economias</div>
+              <div class="value">{{somaEconomia | currency: 'BRL'}}</div>
+            </div>
+            <div class="metric">
+              <div class="label">Balanço</div>
+              <div class="value" [ngClass]="balanco >= 0 ? 'text-success' : 'text-danger'">{{balanco | currency: 'BRL'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
