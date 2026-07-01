@@ -50,9 +50,7 @@ export class RelatoriosComponent implements OnInit {
      var data: Date = new Date()
      this.mesConsulta = data.getMonth() + 1
      
-     this.getAllMeses();
-     this.getTotalTransacoesMes(this.userId, this.mesConsulta); 
-     this.getByMes(this.userId, this.mesConsulta);
+     this.carregarDadosDoMes();
      // Excel
     this.columns = ['Núm. da transação','Descrição','Tipo','Categoria','Mês', 'Valor']
   }
@@ -79,15 +77,15 @@ export class RelatoriosComponent implements OnInit {
     })
   }
 
-  trMesId(event: any) {
-    this.mesConsulta = event.target.value
-    this.getAllMeses();
+  selecionarMes(mesId: number) {
+    this.mesConsulta = mesId;
+    this.carregarDadosDoMes();
   }
 
-  searchByMes(){
-      this.getTotalTransacoesMes(this.userId, this.mesConsulta)
-      this.getByMes(this.userId, this.mesConsulta)
-      this.getAllMeses();
+  carregarDadosDoMes() {
+    this.getAllMeses();
+    this.getTotalTransacoesMes(this.userId, this.mesConsulta);
+    this.getByMes(this.userId, this.mesConsulta);
   }
 
   exportExcel(): void {

@@ -1,87 +1,80 @@
-.btn {
-    margin-bottom: -15px !important;
+.painel-filtros {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+    box-shadow: 0 10px 30px rgba(16, 24, 40, .06);
 }
 
-.btn-excel {
-    background-color: #4BB249;
-    color: #ffffff;
+.mes-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
 }
 
-@media (max-width: 768px) {
-    .bg{
-        min-height: 40vh;
-    }
+.mes-chip {
+    border: 1px solid #d7dde5;
+    background: #f8fafc;
+    color: #4f5b66;
+    border-radius: 999px;
+    padding: .55rem .95rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: all .2s ease;
 }
 
-@media (min-width: 769px) {
-    .bg{
-        min-height: 75vh;
-    }
+.mes-chip:hover {
+    background: #eef2f7;
+    border-color: #b9c3cf;
+    transform: translateY(-1px);
 }
 
+.mes-chip.active {
+    background: linear-gradient(135deg, #1f7a4d, #29a36a);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(41, 163, 106, .22);
+}
+
+.mes-chip:focus-visible {
+    outline: 3px solid rgba(41, 163, 106, .25);
+    outline-offset: 2px;
+}
+
+/* Estilos dos Cards de Resumo */
 .card {
     background-color: #fff;
     border-radius: 10px;
     border: none;
     position: relative;
     margin-bottom: 30px;
-    box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
-}
-.l-bg-cherry {
-    background: linear-gradient(to right, #493240, #f09) !important;
-    color: #fff;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, 0.1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, 0.1), 0 0.25rem 0.53125rem rgba(90, 97, 105, 0.12), 0 0.125rem 0.1875rem rgba(90, 97, 105, 0.1);
 }
 
 .l-bg-blue-dark {
-    background: linear-gradient(to right, #373b44, #4286f4) !important;
+    background: linear-gradient(135deg, #2874a6, #2d83bd) !important;
     color: #fff;
 }
 
 .l-bg-green-dark {
-    background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+    background: linear-gradient(135deg, #1f7a4d, #1f744c) !important;
     color: #fff;
 }
 
 .l-bg-orange-dark {
-    background: linear-gradient(to right, #a86008, #ffba56) !important;
+    background: linear-gradient(135deg, #a11b03a2, #c04312) !important;
     color: #fff;
 }
 
-.card .card-statistic-3 .card-icon-large .fas, .card .card-statistic-3 .card-icon-large .far, .card .card-statistic-3 .card-icon-large .fab, .card .card-statistic-3 .card-icon-large .fal {
-    font-size: 110px;
-}
-
-.card .card-statistic-3 .card-icon {
-    text-align: center;
-    line-height: 50px;
-    margin-left: 15px;
-    color: #000;
-    position: absolute;
-    right: -5px;
-    top: 20px;
-    opacity: 0.1;
-}
-
+/* Cores das Barras de Progresso */
 .l-bg-cyan {
-    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
-    color: #fff;
+    background-color: #4dd0e1 !important;
 }
 
 .l-bg-green {
-    background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
-    color: #fff;
+    background-color: #81c784 !important;
 }
 
 .l-bg-orange {
-    background: linear-gradient(to right, #f9900e, #ffba56) !important;
-    color: #fff;
-}
-
-.l-bg-cyan {
-    background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
-    color: #fff;
-}
-
-span i, span {
-    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+    background-color: #ffb74d !important;
 }
