@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { CategoriaService } from 'src/app/service/categoria.service';
 import { MesService } from 'src/app/service/mes.service';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -66,13 +67,23 @@ export class TransacoesComponent implements OnInit {
     var data: Date = new Date()
     this.mesConsulta = data.getMonth() + 1
 
-    this.getByIdUser()
-    this.getAllCategorias()
-    this.getAllMeses()
-
+    this.carregarDadosIniciais();
   }
 
-  getAllMeses() {
+  carregarDadosIniciais() {
+    // Usamos forkJoin para garantir que todas as chamadas terminem antes de prosseguir
+    forkJoin({
+      meses: this.mesService.getAll(),
+      categorias: this.categoriaService.getAllCategorias()
+    }).subscribe(({ meses, categorias }) => {
+      this.listaMeses = meses;
+      this.listaCategorias = categorias;
+      // Após carregar os dados básicos, buscamos as transações do mês atual
+      this.getTransacaoUser();
+    });
+  }
+
+  getAllMeses() { // Este método não é mais necessário se usarmos carregarDadosIniciais
     this.mesService.getAll().subscribe((resp: Mes[]) => {
       this.listaMeses = resp
     })
@@ -83,56 +94,35 @@ export class TransacoesComponent implements OnInit {
     this.getTransacaoUser()
   }
 
-  getByIdUser() {
-    this.userService.getByIdUser(this.idUSer).subscribe((resp: Usuario) => {
-      this.user = resp
-
-      this.getTransacaoUser()
-    })
-  }
-
   getTransacaoUser() {
-    // Zera as variáveis ao chamar novamente a função
-    this.transacaoMesUser = []
     this.somaTransacao = 0
     this.somaReceita = 0
     this.somaReceitaVr = 0
     this.somaDespesaVr = 0
 
-    // Busca as transações feitas pelo usuário no mês atual
-    for (let transacao of this.user.transacao) {
+    this.transacaoService.getByMes(this.idUSer, this.mesConsulta).subscribe((transacoes: Transacao[]) => {
+      this.transacaoMesUser = transacoes;
 
-      if (transacao.mes.id == this.mesConsulta) {
-        this.transacaoMesUser.push(transacao)
-
+      // Calcula os totais
+      for (let transacao of this.transacaoMesUser) {
         // Transações comuns
         if (transacao.tipo == "Despesa" && transacao.categoria.descricao != "Refeição") {
           this.somaTransacao += transacao.valor
-        } else
-          if (transacao.tipo == "Receita" && transacao.categoria.descricao != "Refeição") {
-            this.somaReceita += transacao.valor
-          }
+        } else if (transacao.tipo == "Receita" && transacao.categoria.descricao != "Refeição") {
+          this.somaReceita += transacao.valor
+        }
 
         // Transações com Vale Refeição
         if (transacao.tipo == "Despesa" && transacao.categoria.descricao == "Refeição") {
           this.somaDespesaVr += transacao.valor
-        } else
-          if (transacao.tipo == "Receita" && transacao.categoria.descricao == "Refeição") {
-            this.somaReceitaVr += transacao.valor
-          }
+        } else if (transacao.tipo == "Receita" && transacao.categoria.descricao == "Refeição") {
+          this.somaReceitaVr += transacao.valor
+        }
       }
-    }
 
-    let perc = 0;
-    if (this.somaReceita > 0) {
-      perc = 100 - ((100 * this.somaTransacao) / this.somaReceita);
-    }
-    perc = perc < 0 ? 0 : perc;
-
-    sessionStorage.setItem('percentual', perc.toFixed(2));
-
-    // Ordena as transações
-    this.transacaoMesUser.sort((a, b) => (a.id < b.id) ? 1 : -1)
+      // Ordena as transações da mais recente para a mais antiga
+      this.transacaoMesUser.sort((a, b) => (a.id < b.id) ? 1 : -1);
+    });
   }
 
   getAllCategorias() {
@@ -147,12 +137,6 @@ export class TransacoesComponent implements OnInit {
 
       this.catDesc = this.transacaoUtil.categoria.descricao
       this.mesDesc = this.transacaoUtil.mes.descricao
-    })
-  }
-
-  getCategoriaById() {
-    this.categoriaService.getByIdCategoria(this.idCategoria).subscribe((resp: Categoria) => {
-      this.categoria = resp
     })
   }
 
@@ -181,16 +165,18 @@ export class TransacoesComponent implements OnInit {
   }
 
   cadastrar() {
-    this.getByIdUser()
     this.transacao.tipo = this.TipoTransacao
 
     // Relacionamento Transação x User
-    this.user.id = this.idUSer
-    this.transacao.usuario = this.user
+    this.transacao.usuario = new Usuario();
+    this.transacao.usuario.id = this.idUSer
 
     // Relacionamento Transação x Categoria
-    this.categoria.id = this.idCategoria
-    this.transacao.categoria = this.categoria
+    // Encontra o objeto categoria na lista já carregada, sem nova chamada à API
+    const categoriaSelecionada = this.listaCategorias.find(c => c.id == this.idCategoria);
+    if (categoriaSelecionada) {
+      this.transacao.categoria = categoriaSelecionada;
+    }
 
     // Relacionamento Transação x Mes
     this.mes.id = this.mesConsulta
@@ -214,7 +200,7 @@ export class TransacoesComponent implements OnInit {
 
         this.alerta.showSuccess('Transação adicionada!', 'Sucesso')
         this.transacao = new Transacao()
-        this.getByIdUser()
+        this.getTransacaoUser() // Apenas atualiza a lista de transações do mês
       },
         error => {
           if (error.status == 400) {
@@ -228,7 +214,12 @@ export class TransacoesComponent implements OnInit {
     this.transacaoUtil.tipo = this.TipoTransacao
 
     // Relacionamentos
-    this.transacaoUtil.categoria = this.categoria
+    // Encontra o objeto categoria na lista já carregada
+    const categoriaSelecionada = this.listaCategorias.find(c => c.id == this.idCategoria);
+    if (categoriaSelecionada) {
+      this.transacaoUtil.categoria = categoriaSelecionada;
+    }
+
     this.transacaoUtil.mes.id = this.mesConsulta
 
     // Validações dos campos
@@ -248,7 +239,7 @@ export class TransacoesComponent implements OnInit {
 
         // Zera e atualiza as variáveis
         this.transacaoUtil = new Transacao();
-        this.getByIdUser()
+        this.getTransacaoUser(); // Apenas atualiza a lista de transações do mês
       },
         error => {
           if (error.status == 400) {
@@ -264,7 +255,7 @@ export class TransacoesComponent implements OnInit {
 
       // Zera e atualiza as variáveis
       this.transacaoUtil = new Transacao();
-      this.getByIdUser()
+      this.getTransacaoUser(); // Apenas atualiza a lista de transações do mês
     })
   }
 }

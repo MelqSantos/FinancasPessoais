@@ -160,8 +160,7 @@
 
                         <div class="form-group">
                             <label for="categoria">Categoria</label>
-                            <select (change)="getCategoriaById()" class="form-control" id="categoria" name="categoria"
-                                [(ngModel)]="idCategoria">
+                            <select class="form-control" id="categoria" name="categoria" [(ngModel)]="idCategoria">
                                 <option *ngFor="let categoria of listaCategorias" value="{{categoria.id}}">
                                     {{categoria.descricao}}</option>
                             </select>
@@ -276,8 +275,7 @@
 
                         <div class="form-group">
                             <label for="categoria">Categoria</label>
-                            <select (change)="getCategoriaById()" class="form-control" id="categoria" name="categoria"
-                                [(ngModel)]="idCategoria">
+                            <select class="form-control" id="categoria" name="categoria" [(ngModel)]="idCategoria">
                                 <option *ngFor="let categoria of listaCategorias" value="{{categoria.id}}">
                                     {{categoria.descricao}}</option>
                             </select>
